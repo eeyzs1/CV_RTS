@@ -1,0 +1,2 @@
+dataset:
+cifar-100:Learning Multiple Layers of Features from Tiny Images, Alex Krizhevsky, 2009.
