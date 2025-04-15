@@ -1,6 +1,7 @@
 # 数据目录通用规则 
 __pycache__/
 data/* 
+model/*
 # !data/raw/           # 保留原始数据目录结构 
 # !data/processed/.keep # 空标记文件 
 
