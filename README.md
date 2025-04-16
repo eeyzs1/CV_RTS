@@ -13,4 +13,5 @@
 
 
 当前实验：
-1. cifar-10: org+pugd+pugdx1+pugdx0_last
+1. 调整epsilon范围
+2. 尝试改成sam法，走高阶，原有pugd思路改造，不乘abs(p)
