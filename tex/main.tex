@@ -1,0 +1,431 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% original template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}
+\usepackage{multirow}
+\input{math_commands.tex}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[]{algorithm2e}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsmath, amssymb}
+
+% Include other packages here, before hyperref.
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+% todo:
+% \cvprfinalcopy % *** Uncomment this line for the final submission
+
+\def\cvprPaperID{xxxx} % *** Enter the CVPR Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ifcvprfinal\pagestyle{empty}\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% micla
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% abbreviations
+\usepackage{xspace}
+\newcommand{\DCCK}{BSConv\xspace}
+\newcommand{\DCCKU}{\DCCK-U\xspace}
+\newcommand{\DCCKS}{\DCCK-S\xspace}
+
+% refs
+\usepackage{cleveref}
+
+% latin abbreviations
+\renewcommand{\cf}{\textit{cf.\@\xspace}}
+
+% ?
+% \newcommand*{\vcenteredhbox}[1]{\begingroup
+% \setbox0=\hbox{#1}\parbox{\wd0}{\box0}\endgroup}
+% \usepackage{adjustbox}
+% \newcommand{\vcenteredhbox}[1]{\adjustbox{valign=c}{#1}}
+% \adjustbox{valign=c}{文本} % 直接使用 
+
+% todo command
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+
+% insert one column worth of empty lines...
+\newcommand{\emptycol}{\vspace*{\fill}}
+
+% used symbols
+\usepackage{amssymb}
+\newcommand{\tensorIn}{U}
+\newcommand{\tensorOut}{V}
+\newcommand{\filter}[1]{F^{(#1)}}
+\newcommand{\blueprint}[1]{B^{(#1)}}
+\newcommand{\blueprintWidthwise}{B'}
+\newcommand{\weight}{w}
+\newcommand{\weightArray}{\tilde{w}}
+\newcommand{\weightA}{w^A}
+\newcommand{\weightAArray}{\tilde{w}^A}
+\newcommand{\weightB}{w^B}
+\newcommand{\weightBArray}{\tilde{w}^B}
+\newcommand{\weightMatrix}{W}
+\newcommand{\weightMatrixA}{W^A}
+\newcommand{\weightMatrixB}{W^B}
+\newcommand{\spatialV}{Y}
+\newcommand{\spatialW}{X}
+\newcommand{\spatialK}{K}
+\newcommand{\spatialKIndex}{k}
+\newcommand{\channelInCount}{M}
+\newcommand{\channelInIndex}{m}
+\newcommand{\channelOutCount}{N}
+\newcommand{\channelOutIndex}{n}
+
+% better page layout
+\clubpenalty = 1
+\widowpenalty = 1
+\displaywidowpenalty = 1
+
+% used for width factors such as `(x0.75)'
+\newcommand{\widthFactor}[1]{(x#1)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% space optimization (less space between text and equations)
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% frontmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{When and How Much to Perturb? Decoding Radius-Timing Scale(RTS) in PUGD Optimization}
+
+\author{Zongyuan Sui\\
+Independent researcher\\
+{\tt\small 15763036963@163.com}
+}
+
+\maketitle
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \todo: add github,change data, finish this part
+\begin{abstract} 8-10lines
+I demonstrate 'Radius-Timing Scale(RTS)' as algorithmic enhancements to the \textit{Perturbated Unit Gradient Descent (PUGD)}.
+Optimization algorithms are pivotal in deep learning, particularly for image classification tasks. \textit{Perturbated Unit Gradient Descent (PUGD)} \cite{Tseng_2022} introduces a novel update rule with limitations of high computational costs that cant reach the better Top-1 accuracy when compared with benchmark SGD when SGD reached convergence. 
+This work tries to alleviate such gap by investigating the limitations of Perturbated Unit Gradient Descent (PUGD) optimizer, proposing a novel additional dual-parameter tuning strategy that adjusts both the perturbation radius and timing of using it. It is analogous to learning rate scheduling, systematic adjustment of perturbation radiuss boosts PUGD's performance, achieving Top-1 accuracy improvements on CIFAR-{10, 100} and Tiny ImageNet. Meanwhile, I identified optimal phases for PUGD activation, reducing training costs by selective application during training and validing phases. At the end, Combining radius and timing control yields synergistic effects, surpassing baseline optimizers (e.g., PUGD) in both final accuracy (+3.2\% avg.) and training stability.
+This work improves PUGD as a computationally adaptive optimizer, with practical guidelines for perturbation scheduling. Code and results are available at \url{https://github.com/eeyzs1}.
+\end{abstract}
+\vspace{-1.25em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} 40lines+fig/1page
+Stochastic Gradient Descent (SGD) \cite{4308316} remains a cornerstone for iterative model optimization, yet it faces one limitation: While theoretical analysis in \cite{kawaguchi2016deeplearningpoorlocal} demonstrates that deep learning models rarely become trapped in strict saddle points or local minima, empirical evidence shows performance variance across different model architectures and training protocols for different tasks. In other word, sharp minima hinder generalization, as shown in \cite{foret2021sharpnessawareminimizationefficientlyimproving}, causing poor performance on new scenarios. These challenges have spurred numerous algorithmic variants, each aiming to mitigate specific drawbacks of vanilla GD \cite{ruder2017overviewgradientdescentoptimization}.
+The \textit{Perturbated Unit Gradient Descent (PUGD)} \cite{Tseng_2022} introduces a novel update rule: gradient perturbation with unit normalization by scaling the combined (original + perturbed) gradient with unit dual norm, which ensures stable updates. This algorithm addresses generalization improvement and saddle point mitigation simultaneously.
+
+\begin{figure}
+	\center
+	\includegraphics[width=\columnwidth]{images/pugd_sgd_reproduction.png}
+	\caption{%todo
+		Left shows \vspace{-0.2em}
+	}
+	\label{fig:pugd_sgd_reproduction}
+\end{figure}
+Although Tseng et al. \cite{Tseng_2022} reported that PUGD outperformed \textit{Stochastic Gradient Descent (SGD)} \cite{4308316} under matched epoch budgets, my CIFAR-10 experiments (\Cref{fig:pugd_sgd_reproduction}) reveal a critical divergence: PUGD fails to match SGD's convergence speed in early training phases, though it eventually achieves higher peak accuracy after extended optimization. This suggests a trade-off between initial convergence rate and final performance.
+Inspired by this finding and \textit{cosine annealing} \cite{loshchilov2017sgdrstochasticgradientdescent}, which is an advanced learning rate scheduling technique that dynamically adjusts the learning rate ($eta_t$) during training following a cosine-shaped decay curve. Mathematically, it is defined as: $\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})\left(1 + \cos\left(\frac{T_{\text{cur}}}{T_{\max}}\pi\right)\right)$. Therefore I want to propose three algorithmic enhancements: 1. A cosine-annealing-adapted perturbation scheduler for PUGD that dynamically adjusts the exploration radius through cyclical temperature decay, enabling phase-wise trade-offs between exploration and exploitation. 2. An adaptive SGD-PUGD hybrid that leverages SGD's rapid initial convergence in early training stages, then transitions to PUGD's perturbation-based refinement for sharpness-aware generalization, achieving both training efficiency and flat-minima convergence. 3. Tunning the scale of gradient so that influence the gradient descent direction reasonablely. The integration of these three enhancements is formally designated as 'Radius-Timing Scale(RTS)'.
+In brief, the main contributions in this work include: 
+\begin{enumerate}
+    \item[(1)] Perturbation Radius Tuning: Analogous to cosine annealing learning rate scheduling, the systematic adjustment of perturbation radiuss boosts PUGD performance.
+    \item[(2)] Computational Efficiency: PUGD is applied efficiently at an appropriate time rather than at the beginning of training. 
+    \item[(3)] Scale of gradient Tunning: the systematic adjustment of gradient boosts PUGD performance
+    \item[(4)] Integrated Solution: Combining perturbation radius and timing control yields synergistic effects and demonstrates the complete optimization process. 
+    \item[(5)] Results comparisons: The results compare the proposed method with PUGD and SGD, showing improvements from Radius-Timing Scale(RTS). 
+\end{enumerate}
+This paper is divided into five parts. First, the background, motivation and a summary of Radius-Timing Scale(RTS) have been present in this. Then, in \Cref{sec:2}, the mechanism and its limitations. After, I present the explanation of Radius-Timing Scale(RTS) enhancement in \Cref{sec:3}. Finally, a series of experiments on PUGD and enhancement is shown in \Cref{sec:4}, with the conclusion in \Cref{sec:5} and supplements in Appendix. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% related work
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Related Work}
+\label{sec:2}
+Since Stochastic Gradient Descent (SGD) \cite{4308316} first emerged as an optimization technique, it has gradually become the de facto standard optimizer across machine learning paradigms, owing to its computational efficiency and proven empirical success in large-scale learning scenarios.
+Whereas modern neural networks exhibit complex, non-convex loss landscapes with multiple global minima that demonstrate distinct generalization capabilities \cite{keskar2017largebatchtrainingdeeplearning}. With the theoretical support from \cite{ji2020directionalconvergencealignmentdeep} that the local Lipschitz condition ensures gradient flow(infinitesimal gradient descent) trajectories avoid oscillatory paths, while SGD noise helps escape sharp basins-jointly contributing to the flat minima. As well as Empirical evidence suggests that gradient normalization can enhance generalization, as demonstrated in prior work. For instance, Path-SGD \cite{neyshabur2015pathsgdpathnormalizedoptimizationdeep} employs path-normalized updates to improve optimization in deep networks, while \cite{jiang2019fantasticgeneralizationmeasures} further links normalized gradients to favorable generalization properties. These findings support the hypothesis that gradient normalization per step promotes stable and well-behaved training dynamics, leading to better generalization. Foret et al. \cite{foret2021sharpnessawareminimizationefficientlyimproving} does further generalization analysis and shows the SGD converged to a sharp minimum which cause bad generalization. Then it provides one method called \textit{SHARPNESS-AWARE MINIMIZATION (SAM)} to handle it by seeking parameters that lie in neighborhoods having uniformly low loss, which is the core idea of perturbation, and then dose an actually the \textit{normalized gradient descent (NGD)} \cite{murray2018revisitingnormalizedgradientdescent} with the found parameters, thus simultaneously minimizing loss value and loss sharpness. Almost the same time, \cite{zheng2021regularizingneuralnetworksadversarial} raised \textit{Adversarial Model Perturbation (AMP)} with a similar idea that add perturbation iteratively to increase the robustness of the model. Both Sharpness-Aware Minimization (SAM) and Adversarial Model Perturbation (AMP) enhance model robustness by introducing perturbations to model parameters, yet they target distinct goals: SAM seeks flat minima for better generalization, while AMP directly defends against parameter-space adversarial attacks.
+Inspired by the effort listed above, PUGD \cite{Tseng_2022} was created to eliminate the landscape noise generated by using dual-norm as a high dimensional space scaler for sharpness detectin, it was demonstrated as below:
+\begin{gather}
+	\hat{\epsilon_{t} } = \frac{\left | w_t \right | \cdot g_t}{\left \| \left | w_t \right | \cdot g_t \right \| } \label{eq:1} \\
+	g_{t^{*}} = \bigtriangledown f (w_t + \hat{\epsilon_{t} }) \\
+	w_{t+1} = w_{t} - \eta _t \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| } = w_{c,t} - \eta _t U_t
+\end{gather}
+Notation explanation: $\epsilon_{t}$ is the unit perturbation, $U_t$ is the unit gradient at t where the "unit gradient" in PUGD came from,  $g_t = \bigtriangledown f (w_t)$ is the gradients of the loss function at t, $g_{t^{*}}$ is the gradients from the unit perturbation $\epsilon_{t}$ with adaptive steps toward each component in a unit ball within the norm of total perturbation radius $\left \| \epsilon_{t} \right \|, U_t = \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| }$ is the final unit gradient at t by which combined the original gradient and the gradient from perturbation, $\eta _t$ is the learning rate.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Radius-Timing Scale(RTS)}
+\label{sec:3}
+This section discusses the limitations of PUGD caused by perturbation radius, double computational cost and the influence from final gradient $U_t$. In order to eliminates these three limitations, three methods based on empirical observations was proposed. 
+
+\subsection{Limitations of PUGD}
+\label{subsec:3.1}
+\eqref{eq:1}
+According to the \textit{SHARPNESS-AWARE MINIMIZATION (SAM)} \cite{foret2021sharpnessawareminimizationefficientlyimproving} defined its core algorithm that used to minimize the PAC-Bayesian generalization error upper bound as:
+For any $\rho>0$, with high probability over training set $\mathcal{S}$ generated from distribution $\mathscr{D}$, $$L_\mathscr{D}(\boldsymbol{w}) \leq \max_{\|\boldsymbol{\epsilon}\|_2 \leq \rho} L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) + h(\|\boldsymbol{w}\|_2^2/\rho^2),$$ where $h: \mathbb{R}_{+}\rightarrow  \mathbb{R}_{+}$ is a strictly increasing function (under some technical conditions on $L_\mathscr{D}(\boldsymbol{w})$).
+The right hand side of the inequality above can be rewritten as the sum of sharpness and gradient:
+$$[\max_{\|\boldsymbol{\epsilon}\|_2\leq \rho }L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) - L_\mathcal{S}(\boldsymbol{w})] + L_\mathcal{S}(\boldsymbol{w}) + h(\|\boldsymbol{w}\|_2^2/\rho^2)$$ Therefore, gradient descent by the gradient from the perturbation means suppress both the sharpness and gradient, which theoretically reduce loss and generalization error.
+Returning to PUGD, its perturbation radius ($\rho$ in the SAM's formula) is fixed to 1, unlike SAM/ASAM where $\rho$ is tunable. This invariance may stem from PUGD's implicit adaptive correction of perturbations through utility-based gradient statistics, bypassing the need to explicitly optimize $\rho$-dependent terms like $h(\|\boldsymbol{w}\|_2^2/\rho^2)$ in generalization bounds. While Kwon et al. \cite{kwon2021asamadaptivesharpnessawareminimization} show that varying $\rho$ affects test accuracy, though ASAM used the similar method as PUGD to bypass $h(\cdot)$. No empirical or theoretical evidence supports $\rho = 1$ as the optimal perturbation radius across all scenarios.
+Meanwhile, PUGD faces two inherent challenges:
+\begin{enumerate}
+    \item[(1)] Computational Cost: Persistent sharpness minimization throughout training incurs doubled computational overhead due to repeated gradient calculations.
+	\item[(2)] Dynamic Perturbation Effect: The efficacy of perturbations is inherently coupled with the evolving sharpness landscape during training, suggesting that the timing of perturbation application critically influences optimization outcomes.
+\end{enumerate}
+This necessitates a strategic discussion on when to activate perturbation-based sharpness control, rather than enforcing it indiscriminately across all training phases.
+
+The final gradient update direction in PUGD, defined as $U_t = \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| }$, implicitly suppresses the effect of sharpness minimization by effectively doubling the gradient magnitude. Compared to SAM or ASAM, this approach assigns greater weight to the raw gradient throughout training. However, similar to the lack of consensus on an optimal perturbation radius, there exists no empirical or theoretical justification for assuming that doubling the gradient is universally optimal across all scenarios. This observation suggests the need to critically evaluate:
+\begin{enumerate}
+    \item[(1)] Gradient Scaling: Whether the current heuristic (e.g., $g_{t^{*}} + g_t$) provides the most effective balance between sharpness control and convergence.
+    \item[(2)] Scenario Adaptivity: How gradient scaling should be dynamically adjusted based on problem-specific geometry (e.g., loss landscape curvature or batch statistics).
+\end{enumerate}
+Further research is warranted to establish principled guidelines for calibrating gradient magnitudes in sharpness-aware optimization.
+
+\subsection{Perturbation Radius Tuning}
+\label{subsec:3.2}
+In order to minimize $L^{SAM}_\mathcal{S}(\boldsymbol{w})$, Foret et al. \cite{foret2021sharpnessawareminimizationefficientlyimproving} derive an efficient and effective approximation to $\nabla_{\boldsymbol{w}} L^{SAM}_\mathcal{S}(\boldsymbol{w})$ by differentiating through the inner maximization, which in turn enables us to apply stochastic gradient descent directly to the SAM objective.  Proceeding down this path, we first approximate the inner maximization problem via a first-order Taylor expansion of $L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon})$ w.r.t. $\boldsymbol{\epsilon}$ around $\boldsymbol{0}$, obtaining
+\begin{align*}
+{\boldsymbol{\epsilon}^*}(\boldsymbol{w}) &\triangleq \argmax_{\|\boldsymbol{\epsilon}\|_p \leq \rho} L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) \\
+&\approx \argmax_{\|\boldsymbol{\epsilon}\|_p \leq \rho} L_\mathcal{S}(\boldsymbol{w}) + \boldsymbol{\epsilon}^T \nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w}) \\
+&= \argmax_{\|\boldsymbol{\epsilon}\|_p \leq \rho} \boldsymbol{\epsilon}^T \nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})
+\end{align*}
+In turn, the value $\hat{\boldsymbol{\epsilon}}(\boldsymbol{w})$ that solves this approximation is given by the solution to a classical dual norm problem ($|\cdot |^{q-1}$ denotes elementwise absolute value and power)
+\begin{align*}
+\label{eq:dual-solution}
+    \hat{\boldsymbol{\epsilon}}(\boldsymbol{w}) = \rho \mbox{sign}\left(\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\right) \frac{\left|\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\right|^{q-1}} {\bigg(\|\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\|_q^q\bigg)^{1/p}}
+\end{align*}
+where $1/p + 1/q = 1$. 
+
+\subsection{Timing of application for PUGD}
+\label{subsec:3.3}
+Dynamic triggering conditions based on gradient statistics基于梯度统计量的动态触发条件
+Hybrid strategy based on generalization error prediction基于泛化误差预测的混合策略
+There are three methods to measure when to use PUGD as:
+\begin{enumerate}
+    \item[(1)] Gradient variance threshold: 计算当前批次梯度的L2范数方差 $\sigma ^{2} = Var(\left \|g_{t} \right \|_{2})$ (滑动窗口统计，如过去 k=10 个batch)。
+	触发条件：$\sigma ^{2} < \gamma \cdot  \sigma ^{2}_{init}$ , $\sigma ^{2}_{init}$ 是训练初期（前10\% steps）的梯度方差均值，$\gamma$ 为衰减系数（如0.2）。
+    \item[(2)] Gradient cosine similarity monitoring: 计算相邻step梯度的余弦相似度 $\cos \theta _{t} = \frac{g_{t} \cdot g_{t-1}}{\left \| g_{t} \right \| \left \| g_{t-1} \right \|}  $  触发条件：
+		$\frac{1}{k} \sum_{i=t-k+1}^{t} \cos \theta _{i} > \kappa $ (如 $\kappa$ =0.9)表示梯度方向持续一致超过阈值时启用扰动。
+	\item[(3)] generalization gap monitoring: 数学依据：训练损失与验证损失的差异反映模型过拟合倾向。
+	算法逻辑：每隔 T 个epoch，计算重采样的泛化间隙 $ \Delta = E\left | L_{val} - L_{train} \right | $ 触发条件：$\Delta > \mu \cdot \Delta _{base}, \Delta _{base} 为初始间隙, \mu 为比例阈值（如2.0） \Delta _{base} = \frac{1}{\xi} \sum_{i=1}^{\xi} \Delta _{i}, \xi = max(3,总epochs x 0.1), Dynamic baseline (segmented weighted average) 动态基线（分段加权平均） $,
+\end{enumerate}
+
+method 2 was gave up due to high computational cost, if use it, the computational cost will not be minimized, but maybe useful for furture research
+
+\subsection{Scale of gradient Tunning}
+\label{subsec:3.4}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% experiments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Experiments}
+\label{sec:4}
+We evaluate our approach of blueprint separable convolutions based on a variety of commonly used benchmark datasets.
+We provide a comprehensive analysis of the \mbox{MobileNet} family and their modified counterparts according to our findings in \Cref{sec:dcck:mobilenets}.
+Furthermore, we demonstrate how our approach can be used as a drop-in substitution for regular convolution layers in standard models like ResNets to drastically reduce the number of model parameters and operations, while keeping or even gaining accuracy.
+
+To allow for a fair comparison, we train all models---including the baseline networks---with exactly the same training procedure.
+
+\subsection{Perturbation radius}
+\label{subsec:4.1}
+
+\subsection{Timing of application}
+\label{subsec:4.2}
+
+\subsection{Radius-Timing Scale(RTS)}
+\label{subsec:4.3}
+
+To assess the performance of \DCCK models in large-scale classification scenarios, we conduct experiments on the ImageNet dataset (ILSVRC2012, \cite{russakovsky2015imagenet}).
+It contains about 1.3M images for training and 50k images for testing which are drawn from 1000 object categories.
+
+We employ a common training protocol and train for 100 epochs with
+an initial learning rate of $0.1$ which is decayed by a factor of $0.1$ at epochs $30$, $60$, and $90$.
+We use SGD with momentum $0.9$ and a weight decay of $10^{-4}$.
+To allow for a fair comparison and to investigate the effect of our approach, we train own baseline models with exactly the same training setup as used for \DCCK models.
+The images are resized such that their short side has a length of $256$ px.
+We use the well-established Inception-like scale augmentation \cite{szegedy2015going}, horizontal flips, and color jitter \cite{krizhevsky2012imagenet}.
+
+\textbf{MobileNets.}
+As for the CIFAR experiments, we compare MobileNets to their corresponding \DCCK variants.
+Again, \DCCKU is used for MobileNetV1, and \mbox{\DCCKS} is used for MobileNetV2/V3.
+The subspace compression ratio for \DCCKS is $p = \frac{1}{6}$ just like for the CIFAR experiments.
+The weighting coefficient $\alpha$ for the orthonormal regularization loss was set to $0.1$.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|c|c|c|}
+			\hline
+			Network & Original & \DCCK (ours) \\
+			\hline
+			MobileNetV1 \widthFactor{0.25} 		& 51.8 & \bf{53.2} \\
+			MobileNetV1 \widthFactor{0.5}  		& 63.5 & \bf{64.6} \\
+			MobileNetV1 \widthFactor{0.75} 		& 68.2 & \bf{69.2} \\
+			MobileNetV1 \widthFactor{1.0}  		& 70.8 & \bf{71.5} \\
+			\hline
+			MobileNetV2 \widthFactor{1.0} 		& 69.7 & \bf{69.8} \\
+			\hline
+			MobileNetV3-small \widthFactor{1.0} 	& 64.4 & \bf{64.8} \\
+			\hline
+			MobileNetV3-large \widthFactor{1.0} 	& \bf{71.5} & \bf{71.5} \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{%
+		MobileNets on ImageNet.
+		\DCCKU is used for MobileNetV1, and \DCCKS is used for MobileNetV2/V3.
+		Note that \DCCK does not introduce additional parameters.
+	}
+	\label{tab:ImageNet-Mobilenet}
+\end{table}
+
+The results are presented in \Cref{tab:ImageNet-Mobilenet}.
+Again, it can be seen that the \DCCK variants of MobileNets outperform their corresponding baseline models.
+However, the relative improvements are no longer as large as for the \mbox{CIFAR} experiments.
+This effect can be explained by the regularization impact of the dataset itself.
+Considering the \mbox{MobileNetV3-large} results, we note that even if the orthonormal regularization loss seems to be no longer effective, it has no negative influence on the training.
+
+\textbf{ResNets.}
+As noted before, it is possible to directly substitute regular convolution layers in standard networks by \DCCK variants.
+To this end, we analyze the effectiveness of our approach when applied to ResNets on large-scale image databases.
+For the baseline models, we use ResNet-10, ResNet-18, and ResNet-26.
+The \DCCK variants are ResNet-10, ResNet-18, ResNet-34, ResNet-68, and ResNet-102.
+Again, we use the same training protocol and augmentation techniques as described above.
+
+\begin{figure*}
+	\center
+	\includegraphics[width=0.45\textwidth]{images/resnets-imagenet-params.png}~~~~~~~~
+	\includegraphics[width=0.45\textwidth]{images/resnets-imagenet-flops.png}
+	\caption{%
+		ResNets on ImageNet.
+		For the baseline models, we use ResNet-10/18/26.
+		The \DCCK variants are ResNet-10/18/34/68/102.
+	}
+     \label{fig:resnetsImagenetParamsAndFlops}
+\end{figure*}
+
+The results are shown in \Cref{fig:resnetsImagenetParamsAndFlops}, split by parameter count and computational complexity.
+It can be seen that the \DCCKU variants of ResNets significantly outperform the baseline models.
+ResNet-10 and \mbox{ResNet-68+\DCCKU}, for instance, have similar parameter counts, while using \DCCK leads to an accuracy gain of $9.5$ percentage points.
+Another interesting example is ResNet-18 vs. \mbox{ResNet-34+\DCCKU}: both have a comparable accuracy, while the \DCCK model has only about one fifth of the baseline model parameter count.
+
+\subsection{Fine-grained Recognition}
+Apart from large-scale object recognition, we are interested in the task of fine-grained classification, as those datasets usually have no inherent regularization.
+The following experiments are conducted on three well-established benchmark datasets for fine-grained recognition, namely Stanford Dogs \cite{Khosla2011dogs}, Stanford Cars \cite{KrauseStarkDengFei-Fei_3DRR2013}, and Oxford 102 Flowers \cite{nilsback2008automated}.
+We train all models from scratch, since parts of these datasets are a subset of ImageNet.
+In contrast to the ImageNet training protocol, we do not use aggressive data augmentation, since we observed that it severely affects model performance.
+We only augment data via random crops, horizontal flips, and random gamma transform.
+
+We use the same training protocol for all three datasets.
+In particular, we use SGD with momentum set to $0.9$ and a weight decay of $10^{-4}$.
+The initial learning rate is set to $0.1$ and linearly decayed at every epoch such that it approaches zero after a total of $100$ epochs.
+
+\textbf{MobileNets.}
+We use the same model setup as for the \mbox{CIFAR} and ImageNet experiments discussed above.
+The results are shown in \Cref{tab:CIFAR-Mobilenet}.
+Again, all \DCCK models substantially outperform their baseline counterparts.
+In contrast to the CIFAR results, the margin is even larger.
+Therefore, the interpretation of the CIFAR results applies here as well.
+
+\textbf{Other Architectures.}
+We further evaluate the effect of our approach for a variety of state-of-the-art models.
+We replace regular convolution layers in standard networks such as VGG \cite{simonyan2014very} and DenseNet \cite{huang2017densely}.
+
+In \Cref{tab:dogsOthers} we can see that all models greatly benefit from the application of \DCCK.
+Accuracy for \DCCKU can be improved by at least 2 percentage points, while having up to $8.5 \times$ less parameters and a substantial reduction of computational complexity.
+Most of the recently proposed model architectures utilize residual linear bottlenecks \cite{sandler2018mobilenetv2}, which can also be easily equipped with our \DCCKS approach in the same way as for MobileNetV2/V3 (see \Cref{sec:dcck:mobilenets:dcck-s}).
+As can be seen in \Cref{tab:dogsOthers}, our subspace model clearly outperforms the original EfficientNet-B0 \cite{tan2019efficientnet} by $6.5$ percentage points and MnasNet \cite{tan2019mnasnet} by $5$ percentage points with the same number of parameters and computational complexity.
+This shows the effectiveness of our proposed orthonormal regularization of the \DCCKS subspace transform.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|}
+			\hline
+			Network & Accuracy \\
+			\hline
+			VGG-16 (BN) \cite{simonyan2014very}	& 60.5 \\
+			VGG-16 (BN) (\DCCKU) 				& \bf{62.4} \\
+			\hline
+			DenseNet-121 \cite{huang2017densely}	& 56.9 \\
+			DenseNet-121 (\DCCKU) 				& \bf{59.4} \\
+			\hline
+			Xception* \cite{chollet2017xception}	& 59.6 \\
+			Xception (\DCCKU) 					& \bf{64.3} \\
+			\hline
+			EfficientNet-B0 \cite{tan2019efficientnet}	& 54.7 \\
+			EfficientNet-B0 (\DCCKS)				& \bf{61.2} \\
+			\hline
+			MnasNet \cite{tan2019mnasnet}			& 54.8 \\
+			MnasNet (\DCCKS)						& \bf{59.8} \\
+			\hline
+			\end{tabular}
+		\end{center}
+	\caption{%
+		Results of various architectures and their \DCCK counterparts for the Stanford Dogs dataset.
+		\DCCKU CNNs have fewer parameters and a smaller computational complexity compared to their baseline models.
+		\DCCKS CNNs have the same parameter count and computational complexity as their counterparts.
+		* Commonly used implementation based on DSCs.
+	}
+	\label{tab:dogsOthers}
+\end{table}
+
+\textbf{Influence of the Orthonormal Regularization.}
+To evaluate the influence of the proposed orthonormal regularization loss for \DCCKS models, we conduct an ablation study using MobileNetV3-large.
+In particular, several identical models are trained on the Stanford Dogs dataset using weighting coefficients $\alpha$ in the radius of $10^{-5}, \ldots, 10^{0}$.
+
+\begin{figure}
+	\center
+	\includegraphics[width=1.0\columnwidth]{images/dcckv2-alpha.png}
+	\caption{%
+		Influence of the orthonormal regularization loss on the accuracy for the \DCCKS variant of MobileNetV3-large (red solid line) on Stanford Dogs.
+		The baseline MobileNetV3-large model without \DCCKS is indicated by the black dashed line.
+	}
+     \label{fig:dcckV2Alpha}
+\end{figure}
+
+As can be seen in \Cref{fig:dcckV2Alpha}, by regularizing the subspace components to be orthonormal, model performance can be substantially improved by over $5$ percentage points.
+An optimum is reached for a weighting coefficient of $\alpha=0.1$.
+For smaller values, the influence of the regularization decreases, until it is no longer effective and converges towards the baseline performance.
+Larger values, however, decrease model performance since the optimization is mainly driven by rapidly reaching a solution with an orthonormal basis independently of creating a beneficial joint representation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% conclusions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions}
+\label{sec:5}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{main}
+}
+
+\end{document}

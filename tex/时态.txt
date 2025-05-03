@@ -1,0 +1,57 @@
+1. 摘要（Abstract）
+背景/目的：现在时（"This paper investigates..."）
+方法/结果：过去时（"We proposed..."）
+结论：现在时（"The findings suggest..."）
+2. 引言（Introduction）
+研究空白：现在完成时（"Few studies have addressed..."）
+本文贡献：现在时（"Our work demonstrates..."）
+3. 方法（Methods）
+实验步骤：过去时（"Data were collected..."）
+算法描述：现在时（"The module processes..."）
+4. 结果（Results）
+直接发现：过去时（"Model A achieved 92% accuracy..."）
+图表说明：现在时（"Figure 3 shows..."）
+5. 讨论（Discussion）
+结果解释：现在时（"This implies..."）
+对比文献：现在完成时（"Prior works have assumed..."）
+6. 结论（Conclusion）
+总结：现在时（"We conclude that..."）
+展望：将来时（"Future studies will explore..."）
+
+
+
+
+基础理论与模型	4–6篇	CNN/Transformer原理（如AlexNet, Vision Transformer）
+相关前人工作	5–8篇	与本文方法直接对比的SOTA模型（如对比YOLOv7和DETR的缺陷）
+数据集与评估	2–3篇	数据集来源（如COCO）、评估指标（如SSIM, mIoU）
+本文方法支撑	3–5篇	引用的数学工具（如注意力机制）、开源代码（如MMDetection）
+其他（可选）	1–3篇	领域前沿方向（如Diffusion Models对图像生成的启发）
+
+
+
+1. 编译流程的核心逻辑
+（1）首次 pdflatex 运行
+作用：
+生成 .aux 文件：记录交叉引用（\label）、目录（\tableofcontents）和参考文献引用（\cite）的临时信息。
+输出初步 PDF：包含未解析的引用标记（如 ??）。
+示例：
+若文档引用公式 \eqref{eq:1}，首次编译后 .aux 文件会记录 \newlabel{eq:1}{{1}{1}}，但 PDF 中可能显示为 (??)。
+（2）bibtex 运行（若需参考文献）
+作用：
+解析 .aux 文件中的 \cite 命令，从 .bib 数据库提取参考文献数据。
+生成 .bbl 文件：包含格式化后的参考文献列表。
+依赖关系：
+需首次 pdflatex 生成的 .aux 文件提供引用信息。
+（3）后续 pdflatex 运行（2次）
+第二次 pdflatex：
+读取 .bbl 文件插入参考文献，解析 \label 和 \cite 的初步位置。
+更新 .aux 文件中的页码和编号（如目录条目）。
+第三次 pdflatex：
+最终确认所有引用位置，解决“正向-反向”引用依赖（如公式编号与正文引用同步）。
+2. 为何需要多次编译？
+（1）LaTeX 的“贪婪”解析机制
+单次编译局限：
+LaTeX 按顺序解析文档，遇到 \label 时尚未计算后续内容的编号（如章节、公式），需二次编译反向填充。
+动态内容影响：
+目录、参考文献等动态内容会改变页码和编号，需多次迭代稳定。
+

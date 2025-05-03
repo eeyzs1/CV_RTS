@@ -1,0 +1,59 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: ieee_fullname.bst
+Database file #1: main.bib
+Warning--I didn't find a database entry for "russakovsky2015imagenet"
+Warning--I didn't find a database entry for "szegedy2015going"
+Warning--I didn't find a database entry for "krizhevsky2012imagenet"
+Warning--I didn't find a database entry for "Khosla2011dogs"
+Warning--I didn't find a database entry for "KrauseStarkDengFei-Fei_3DRR2013"
+Warning--I didn't find a database entry for "nilsback2008automated"
+Warning--I didn't find a database entry for "simonyan2014very"
+Warning--I didn't find a database entry for "huang2017densely"
+Warning--I didn't find a database entry for "sandler2018mobilenetv2"
+Warning--I didn't find a database entry for "tan2019efficientnet"
+Warning--I didn't find a database entry for "tan2019mnasnet"
+Warning--I didn't find a database entry for "chollet2017xception"
+You've used 13 entries,
+            2120 wiz_defined-function locations,
+            566 strings with 6152 characters,
+and the built_in function-call counts, 3754 in all, are:
+= -- 326
+> -- 232
+< -- 1
++ -- 93
+- -- 78
+* -- 217
+:= -- 619
+add.period$ -- 29
+call.type$ -- 13
+change.case$ -- 78
+chr.to.int$ -- 0
+cite$ -- 13
+duplicate$ -- 117
+empty$ -- 306
+format.name$ -- 78
+if$ -- 792
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 2
+newline$ -- 57
+num.names$ -- 26
+pop$ -- 134
+preamble$ -- 1
+purify$ -- 65
+quote$ -- 0
+skip$ -- 124
+stack$ -- 0
+substring$ -- 102
+swap$ -- 29
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 52
+warning$ -- 0
+while$ -- 28
+width$ -- 15
+write$ -- 113
+(There were 12 warnings)
