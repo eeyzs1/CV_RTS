@@ -110,7 +110,7 @@
 % frontmatter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{When and How Much to Perturb? Decoding Radius-Timing Scale(RTS) in PUGD Optimization}
+\title{When and How Much to Perturb? Decoding Radius-Timing-Scale(RTS) in PUGD Optimization}
 
 \author{Zongyuan Sui\\
 Independent researcher\\
@@ -125,10 +125,10 @@ Independent researcher\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \todo: add github,change data, finish this part
 \begin{abstract} 8-10lines
-I demonstrate 'Radius-Timing Scale(RTS)' as algorithmic enhancements to the \textit{Perturbated Unit Gradient Descent (PUGD)}.
+I demonstrate 'Radius-Timing-Scale(RTS)' as algorithmic enhancements to the \textit{Perturbated Unit Gradient Descent (PUGD)}.
 Optimization algorithms are pivotal in deep learning, particularly for image classification tasks. \textit{Perturbated Unit Gradient Descent (PUGD)} \cite{Tseng_2022} introduces a novel update rule with limitations of high computational costs that cant reach the better Top-1 accuracy when compared with benchmark SGD when SGD reached convergence. 
-This work tries to alleviate such gap by investigating the limitations of Perturbated Unit Gradient Descent (PUGD) optimizer, proposing a novel additional dual-parameter tuning strategy that adjusts both the perturbation radius and timing of using it. It is analogous to learning rate scheduling, systematic adjustment of perturbation radiuss boosts PUGD's performance, achieving Top-1 accuracy improvements on CIFAR-{10, 100} and Tiny ImageNet. Meanwhile, I identified optimal phases for PUGD activation, reducing training costs by selective application during training and validing phases. At the end, Combining radius and timing control yields synergistic effects, surpassing baseline optimizers (e.g., PUGD) in both final accuracy (+3.2\% avg.) and training stability.
-This work improves PUGD as a computationally adaptive optimizer, with practical guidelines for perturbation scheduling. Code and results are available at \url{https://github.com/eeyzs1}.
+This work tries to alleviate such gap by investigating the limitations of Perturbated Unit Gradient Descent (PUGD) optimizer, proposing a novel additional dual-parameter tuning strategy that adjusts both the perturbation radius, timing of using it and the scale of gradient. It is analogous to learning rate scheduling, systematic adjustment of perturbation radius and scale of gradient boosts PUGD's performance, achieving Top-1 accuracy improvements on CIFAR-{10, 100} and Tiny ImageNet. Meanwhile, I identified optimal phases for PUGD activation, reducing training costs by selective application during training and validing phases. At the end, Combining radius and timing control yields synergistic effects, surpassing baseline optimizers (e.g., PUGD) in both final accuracy (+3.2\% avg.) and training stability.
+This work improves PUGD as a computationally adaptive optimizer, with practical guidelines for perturbation scheduling. Code and results are available under \url{https://github.com/eeyzs1}.
 \end{abstract}
 \vspace{-1.25em}
 
@@ -137,18 +137,22 @@ This work improves PUGD as a computationally adaptive optimizer, with practical 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction} 40lines+fig/1page
 Stochastic Gradient Descent (SGD) \cite{4308316} remains a cornerstone for iterative model optimization, yet it faces one limitation: While theoretical analysis in \cite{kawaguchi2016deeplearningpoorlocal} demonstrates that deep learning models rarely become trapped in strict saddle points or local minima, empirical evidence shows performance variance across different model architectures and training protocols for different tasks. In other word, sharp minima hinder generalization, as shown in \cite{foret2021sharpnessawareminimizationefficientlyimproving}, causing poor performance on new scenarios. These challenges have spurred numerous algorithmic variants, each aiming to mitigate specific drawbacks of vanilla GD \cite{ruder2017overviewgradientdescentoptimization}.
+
 The \textit{Perturbated Unit Gradient Descent (PUGD)} \cite{Tseng_2022} introduces a novel update rule: gradient perturbation with unit normalization by scaling the combined (original + perturbed) gradient with unit dual norm, which ensures stable updates. This algorithm addresses generalization improvement and saddle point mitigation simultaneously.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\center
-	\includegraphics[width=\columnwidth]{images/pugd_sgd_reproduction.png}
+	\includegraphics[width=\columnwidth]{images/SGDvsPUGD.pdf}
 	\caption{%todo
-		Left shows \vspace{-0.2em}
+	Training histories of SGD and PUGD
+    \textbf{Top row}: Loss and accuracy of both optimizers (400 epochs)
+    \textbf{Bottom row}: SGD (800 epochs) vs PUGD (400 epochs)
 	}
-	\label{fig:pugd_sgd_reproduction}
+	\label{fig:SGDvsPUGD}
 \end{figure}
-Although Tseng et al. \cite{Tseng_2022} reported that PUGD outperformed \textit{Stochastic Gradient Descent (SGD)} \cite{4308316} under matched epoch budgets, my CIFAR-10 experiments (\Cref{fig:pugd_sgd_reproduction}) reveal a critical divergence: PUGD fails to match SGD's convergence speed in early training phases, though it eventually achieves higher peak accuracy after extended optimization. This suggests a trade-off between initial convergence rate and final performance.
-Inspired by this finding and \textit{cosine annealing} \cite{loshchilov2017sgdrstochasticgradientdescent}, which is an advanced learning rate scheduling technique that dynamically adjusts the learning rate ($eta_t$) during training following a cosine-shaped decay curve. Mathematically, it is defined as: $\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})\left(1 + \cos\left(\frac{T_{\text{cur}}}{T_{\max}}\pi\right)\right)$. Therefore I want to propose three algorithmic enhancements: 1. A cosine-annealing-adapted perturbation scheduler for PUGD that dynamically adjusts the exploration radius through cyclical temperature decay, enabling phase-wise trade-offs between exploration and exploitation. 2. An adaptive SGD-PUGD hybrid that leverages SGD's rapid initial convergence in early training stages, then transitions to PUGD's perturbation-based refinement for sharpness-aware generalization, achieving both training efficiency and flat-minima convergence. 3. Tunning the scale of gradient so that influence the gradient descent direction reasonablely. The integration of these three enhancements is formally designated as 'Radius-Timing Scale(RTS)'.
+
+Although Tseng et al. \cite{Tseng_2022} reported that PUGD outperformed \textit{Stochastic Gradient Descent (SGD)} \cite{4308316} under matched epoch budgets, my CIFAR-10 experiments (\Cref{fig:SGDvsPUGD}) reveal a divergence: PUGD fails to match SGD's convergence speed in early training phases, though it eventually achieves higher peak accuracy after extended optimization. This suggests a trade-off between initial convergence rate and final performance, which means potential optimization possibilities.
+Inspired by this finding and \textit{cosine annealing} \cite{loshchilov2017sgdrstochasticgradientdescent}, which is a learning rate scheduling technique that dynamically adjusts the learning rate ($eta_t$) during training following a cosine-shaped decay curve. Mathematically, it is defined as: $\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})\left(1 + \cos\left(\frac{T_{\text{cur}}}{T_{\max}}\pi\right)\right)$. Therefore I want to propose three algorithmic enhancements: 1. A cosine-annealing-adapted perturbation scheduler for PUGD that dynamically adjusts the exploration radius through cyclical temperature decay, enabling phase-wise trade-offs between exploration and exploitation. 2. An adaptive SGD-PUGD hybrid that leverages SGD's rapid initial convergence in early training stages, then transitions to PUGD's perturbation-based refinement for sharpness-aware generalization, achieving both training efficiency and flat-minima convergence. 3. Tunning the scale of gradient so that influence the gradient descent direction reasonablely. The integration of these three enhancements is formally designated as 'Radius-Timing Scale(RTS)'.
 In brief, the main contributions in this work include: 
 \begin{enumerate}
     \item[(1)] Perturbation Radius Tuning: Analogous to cosine annealing learning rate scheduling, the systematic adjustment of perturbation radiuss boosts PUGD performance.
@@ -165,12 +169,14 @@ This paper is divided into five parts. First, the background, motivation and a s
 \section{Related Work}
 \label{sec:2}
 Since Stochastic Gradient Descent (SGD) \cite{4308316} first emerged as an optimization technique, it has gradually become the de facto standard optimizer across machine learning paradigms, owing to its computational efficiency and proven empirical success in large-scale learning scenarios.
-Whereas modern neural networks exhibit complex, non-convex loss landscapes with multiple global minima that demonstrate distinct generalization capabilities \cite{keskar2017largebatchtrainingdeeplearning}. With the theoretical support from \cite{ji2020directionalconvergencealignmentdeep} that the local Lipschitz condition ensures gradient flow(infinitesimal gradient descent) trajectories avoid oscillatory paths, while SGD noise helps escape sharp basins-jointly contributing to the flat minima. As well as Empirical evidence suggests that gradient normalization can enhance generalization, as demonstrated in prior work. For instance, Path-SGD \cite{neyshabur2015pathsgdpathnormalizedoptimizationdeep} employs path-normalized updates to improve optimization in deep networks, while \cite{jiang2019fantasticgeneralizationmeasures} further links normalized gradients to favorable generalization properties. These findings support the hypothesis that gradient normalization per step promotes stable and well-behaved training dynamics, leading to better generalization. Foret et al. \cite{foret2021sharpnessawareminimizationefficientlyimproving} does further generalization analysis and shows the SGD converged to a sharp minimum which cause bad generalization. Then it provides one method called \textit{SHARPNESS-AWARE MINIMIZATION (SAM)} to handle it by seeking parameters that lie in neighborhoods having uniformly low loss, which is the core idea of perturbation, and then dose an actually the \textit{normalized gradient descent (NGD)} \cite{murray2018revisitingnormalizedgradientdescent} with the found parameters, thus simultaneously minimizing loss value and loss sharpness. Almost the same time, \cite{zheng2021regularizingneuralnetworksadversarial} raised \textit{Adversarial Model Perturbation (AMP)} with a similar idea that add perturbation iteratively to increase the robustness of the model. Both Sharpness-Aware Minimization (SAM) and Adversarial Model Perturbation (AMP) enhance model robustness by introducing perturbations to model parameters, yet they target distinct goals: SAM seeks flat minima for better generalization, while AMP directly defends against parameter-space adversarial attacks.
+Whereas modern neural networks exhibit complex, non-convex loss landscapes with multiple global minima that demonstrate distinct generalization capabilities \cite{keskar2017largebatchtrainingdeeplearning}. With the theoretical support from \cite{ji2020directionalconvergencealignmentdeep} that the local Lipschitz condition ensures gradient flow(infinitesimal gradient descent) trajectories avoid oscillatory paths, while SGD noise helps escape sharp basins-jointly contributing to the flat minima. As well as Empirical evidence suggests that gradient normalization can enhance generalization, as demonstrated in prior work. For instance, Path-SGD \cite{neyshabur2015pathsgdpathnormalizedoptimizationdeep} employs path-normalized updates to improve optimization in deep networks, while \cite{jiang2019fantasticgeneralizationmeasures} further links normalized gradients to favorable generalization properties. These findings support the hypothesis that gradient normalization per step promotes stable and well-behaved training dynamics, leading to better generalization. 
+
+Foret et al. \cite{foret2021sharpnessawareminimizationefficientlyimproving} does further generalization analysis and shows the SGD converged to a sharp minimum which cause bad generalization. Then it provides one method called \textit{SHARPNESS-AWARE MINIMIZATION (SAM)} to handle it by seeking parameters that lie in neighborhoods having uniformly low loss, which is the core idea of perturbation, and then dose an actually the \textit{normalized gradient descent (NGD)} \cite{murray2018revisitingnormalizedgradientdescent} with the found parameters, thus simultaneously minimizing loss value and loss sharpness. Almost the same time, \cite{zheng2021regularizingneuralnetworksadversarial} raised \textit{Adversarial Model Perturbation (AMP)} with a similar idea that add perturbation iteratively to increase the robustness of the model. Both Sharpness-Aware Minimization (SAM) and Adversarial Model Perturbation (AMP) enhance model robustness by introducing perturbations to model parameters, yet they target distinct goals: SAM seeks flat minima for better generalization, while AMP directly defends against parameter-space adversarial attacks.
 Inspired by the effort listed above, PUGD \cite{Tseng_2022} was created to eliminate the landscape noise generated by using dual-norm as a high dimensional space scaler for sharpness detectin, it was demonstrated as below:
 \begin{gather}
 	\hat{\epsilon_{t} } = \frac{\left | w_t \right | \cdot g_t}{\left \| \left | w_t \right | \cdot g_t \right \| } \label{eq:1} \\
-	g_{t^{*}} = \bigtriangledown f (w_t + \hat{\epsilon_{t} }) \\
-	w_{t+1} = w_{t} - \eta _t \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| } = w_{c,t} - \eta _t U_t
+	g_{t^{*}} = \bigtriangledown f (w_t + \hat{\epsilon_{t} }) \label{eq:2} \\
+	w_{t+1} = w_{t} - \eta _t \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| } = w_{c,t} - \eta _t U_t \label{eq:3} 
 \end{gather}
 Notation explanation: $\epsilon_{t}$ is the unit perturbation, $U_t$ is the unit gradient at t where the "unit gradient" in PUGD came from,  $g_t = \bigtriangledown f (w_t)$ is the gradients of the loss function at t, $g_{t^{*}}$ is the gradients from the unit perturbation $\epsilon_{t}$ with adaptive steps toward each component in a unit ball within the norm of total perturbation radius $\left \| \epsilon_{t} \right \|, U_t = \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| }$ is the final unit gradient at t by which combined the original gradient and the gradient from perturbation, $\eta _t$ is the learning rate.
 
@@ -183,40 +189,59 @@ This section discusses the limitations of PUGD caused by perturbation radius, do
 
 \subsection{Limitations of PUGD}
 \label{subsec:3.1}
-\eqref{eq:1}
+
 According to the \textit{SHARPNESS-AWARE MINIMIZATION (SAM)} \cite{foret2021sharpnessawareminimizationefficientlyimproving} defined its core algorithm that used to minimize the PAC-Bayesian generalization error upper bound as:
-For any $\rho>0$, with high probability over training set $\mathcal{S}$ generated from distribution $\mathscr{D}$, $$L_\mathscr{D}(\boldsymbol{w}) \leq \max_{\|\boldsymbol{\epsilon}\|_2 \leq \rho} L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) + h(\|\boldsymbol{w}\|_2^2/\rho^2),$$ where $h: \mathbb{R}_{+}\rightarrow  \mathbb{R}_{+}$ is a strictly increasing function (under some technical conditions on $L_\mathscr{D}(\boldsymbol{w})$).
+For any $\rho>0$, with high probability over training set $\mathcal{S}$ generated from distribution $\mathscr{D}$, $$L_\mathscr{D}(\boldsymbol{w}) \leq \max_{\|\boldsymbol{\epsilon}\|_2 \leq \rho} L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) + h(\|\boldsymbol{w}\|_2^2/\rho^2),$$ where $h: \mathbb{R}_{+}\rightarrow  \mathbb{R}_{+}$ is a strictly increasing function (which is the dominant term of the upper bound of generalization error or can be treated as complexity regularization term).
 The right hand side of the inequality above can be rewritten as the sum of sharpness and gradient:
 $$[\max_{\|\boldsymbol{\epsilon}\|_2\leq \rho }L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) - L_\mathcal{S}(\boldsymbol{w})] + L_\mathcal{S}(\boldsymbol{w}) + h(\|\boldsymbol{w}\|_2^2/\rho^2)$$ Therefore, gradient descent by the gradient from the perturbation means suppress both the sharpness and gradient, which theoretically reduce loss and generalization error.
-Returning to PUGD, its perturbation radius ($\rho$ in the SAM's formula) is fixed to 1, unlike SAM/ASAM where $\rho$ is tunable. This invariance may stem from PUGD's implicit adaptive correction of perturbations through utility-based gradient statistics, bypassing the need to explicitly optimize $\rho$-dependent terms like $h(\|\boldsymbol{w}\|_2^2/\rho^2)$ in generalization bounds. While Kwon et al. \cite{kwon2021asamadaptivesharpnessawareminimization} show that varying $\rho$ affects test accuracy, though ASAM used the similar method as PUGD to bypass $h(\cdot)$. No empirical or theoretical evidence supports $\rho = 1$ as the optimal perturbation radius across all scenarios.
+
+Returning to PUGD, its perturbation radius ($\rho$ in the SAM's formula) is fixed to 1 as shown in \eqref{eq:1}, unlike SAM/ASAM where $\rho$ is tunable. This invariance may stem from PUGD's implicit adaptive correction of perturbations through utility-based gradient statistics, bypassing the need to explicitly optimize $\rho$-dependent terms like $h(\|\boldsymbol{w}\|_2^2/\rho^2)$ in generalization bounds. While Kwon et al. \cite{kwon2021asamadaptivesharpnessawareminimization} show that varying $\rho$ affects test accuracy, though ASAM used the similar method as PUGD to bypass $h(\cdot)$. No empirical or theoretical evidence supports $\rho = 1$ as the optimal perturbation radius across all scenarios.
+
 Meanwhile, PUGD faces two inherent challenges:
 \begin{enumerate}
-    \item[(1)] Computational Cost: Persistent sharpness minimization throughout training incurs doubled computational overhead due to repeated gradient calculations.
-	\item[(2)] Dynamic Perturbation Effect: The efficacy of perturbations is inherently coupled with the evolving sharpness landscape during training, suggesting that the timing of perturbation application critically influences optimization outcomes.
+    \item[(1)] Computational Cost: Persistent sharpness minimization throughout training incurs doubled computational overhead due to repeated gradient calculations. As shown in \Cref{fig:SGDvsPUGD}, the loss decrease and accuracy increase didn't show significant differences in initial epochs, and the SGD converged faster than PUGD with a higher accuracy. No matter PUGD used the same computational cost or half the computational cost as SGD.
+	\item[(2)] Dynamic Perturbation Effect: The learning trajectories of different optimizers has similar paths during the initial epochs\cite{Tseng_2022}. This suggests that the optimal timing for applying different optimizers may potentially influence the optimization outcomes, provided we can identify such timing through a measurable criterion.
 \end{enumerate}
 This necessitates a strategic discussion on when to activate perturbation-based sharpness control, rather than enforcing it indiscriminately across all training phases.
 
-The final gradient update direction in PUGD, defined as $U_t = \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| }$, implicitly suppresses the effect of sharpness minimization by effectively doubling the gradient magnitude. Compared to SAM or ASAM, this approach assigns greater weight to the raw gradient throughout training. However, similar to the lack of consensus on an optimal perturbation radius, there exists no empirical or theoretical justification for assuming that doubling the gradient is universally optimal across all scenarios. This observation suggests the need to critically evaluate:
+The final gradient update direction in PUGD, defined as $U_t = \frac{(g_{t^{*}} + g_t)}{\left \|g_{t^{*}} + g_t\right \| }$ from eqref{eq:3}, implicitly suppresses the effect of sharpness minimization by effectively doubling the gradient magnitude. Compared to SAM or ASAM, this approach assigns greater weight to the raw gradient throughout training. However, similar to the lack of consensus on an optimal perturbation radius, there exists no empirical or theoretical justification for assuming that doubling the gradient is universally optimal across all scenarios. This observation suggests the need to further evaluate:
 \begin{enumerate}
     \item[(1)] Gradient Scaling: Whether the current heuristic (e.g., $g_{t^{*}} + g_t$) provides the most effective balance between sharpness control and convergence.
     \item[(2)] Scenario Adaptivity: How gradient scaling should be dynamically adjusted based on problem-specific geometry (e.g., loss landscape curvature or batch statistics).
 \end{enumerate}
-Further research is warranted to establish principled guidelines for calibrating gradient magnitudes in sharpness-aware optimization.
+Further research is warranted to establish guidelines for calibrating gradient magnitudes in sharpness-aware optimization.
 
 \subsection{Perturbation Radius Tuning}
 \label{subsec:3.2}
-In order to minimize $L^{SAM}_\mathcal{S}(\boldsymbol{w})$, Foret et al. \cite{foret2021sharpnessawareminimizationefficientlyimproving} derive an efficient and effective approximation to $\nabla_{\boldsymbol{w}} L^{SAM}_\mathcal{S}(\boldsymbol{w})$ by differentiating through the inner maximization, which in turn enables us to apply stochastic gradient descent directly to the SAM objective.  Proceeding down this path, we first approximate the inner maximization problem via a first-order Taylor expansion of $L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon})$ w.r.t. $\boldsymbol{\epsilon}$ around $\boldsymbol{0}$, obtaining
+
+According to \cite{foret2021sharpnessawareminimizationefficientlyimproving}, through a series of mathematical deductions and simplifications, the original SAM inequality can be updated to gradient descent with 
 \begin{align*}
-{\boldsymbol{\epsilon}^*}(\boldsymbol{w}) &\triangleq \argmax_{\|\boldsymbol{\epsilon}\|_p \leq \rho} L_\mathcal{S}(\boldsymbol{w}+\boldsymbol{\epsilon}) \\
-&\approx \argmax_{\|\boldsymbol{\epsilon}\|_p \leq \rho} L_\mathcal{S}(\boldsymbol{w}) + \boldsymbol{\epsilon}^T \nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w}) \\
-&= \argmax_{\|\boldsymbol{\epsilon}\|_p \leq \rho} \boldsymbol{\epsilon}^T \nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})
+\nabla_{\boldsymbol{w}} L^{SAM}_\mathcal{S}(\boldsymbol{w}) & \approx \nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w} + \hat{\boldsymbol{\epsilon}}(\boldsymbol{w})).
 \end{align*}
-In turn, the value $\hat{\boldsymbol{\epsilon}}(\boldsymbol{w})$ that solves this approximation is given by the solution to a classical dual norm problem ($|\cdot |^{q-1}$ denotes elementwise absolute value and power)
+where \begin{align*}
+	L^{SAM}_\mathcal{S}(\boldsymbol{w}) \triangleq \max_{||\boldsymbol{\epsilon}||_p\leq \rho} L_S(\boldsymbol{w}+\boldsymbol{\epsilon}),
+\end{align*} and 
 \begin{align*}
-\label{eq:dual-solution}
-    \hat{\boldsymbol{\epsilon}}(\boldsymbol{w}) = \rho \mbox{sign}\left(\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\right) \frac{\left|\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\right|^{q-1}} {\bigg(\|\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\|_q^q\bigg)^{1/p}}
+	\hat{\boldsymbol{\epsilon}}(\boldsymbol{w}) = \rho \mbox{sign}\left(\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\right) \frac{\left|\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\right|^{q-1}} {\bigg(\|\nabla_{\boldsymbol{w}} L_\mathcal{S}(\boldsymbol{w})\|_q^q\bigg)^{1/p}}
 \end{align*}
-where $1/p + 1/q = 1$. 
+with $1/p + 1/q = 1$ and p and q were chose as 2 for both SAM and PUGD. 
+
+What PUGD did is set the $\rho = 1$, which is bound the perturbation radius in other words, though Foret et al. \cite{foret2021sharpnessawareminimizationefficientlyimproving} and \cite{kwon2021asamadaptivesharpnessawareminimization} inidicates in their articles that $\rho$ with different values can also generate competitive performance.
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=\columnwidth]{images/SGD_LLC.pdf}
+	\caption{%todo
+	Loss landscape and contour of SGD
+	}
+	\label{fig:SGD_LLC}
+\end{figure}
+
+With respect to the loss landscape as shown in \Cref{fig:SGD_LLC}, which generated based on the loss landscape work \cite{li2018visualizinglosslandscapeneural}. 
+In the light of \Cref{fig:SGDvsPUGD} and the ideas that "flat" minimizers that generalize well \cite{chaudhari2017entropysgdbiasinggradientdescent}. The training process can be illustrated as optimizer generally navigates the loss landscape by starting at random initial weights, iteratively moving opposite to noisy mini-batch gradients (which help escape saddle points), oscillating in narrow valleys due to high curvature, and eventually converging toward flat regions (minima) as the learning rate decays—behaving like a marble rolling down a bumpy slope with stochastic nudges. 
+This motivates a two-way exploration into how perturbation radii (large vs. small) interact with training phases (early vs. late) — an underexplored dimension that may reveal optimal noise scheduling strategies.
+Early training benefits from larger perturbation radii to escape poor initializations (e.g., saddle points in high-curvature regions), while later stages require smaller radii to fine-tune within flat minima basins. This aligns with the loss landscape's evolution: from chaotic high-loss terrain (needing exploration) to stable low-loss regions (needing exploitation). Adaptive decay balances both phases, leveraging noise for faster convergence and better generalization.
+
+This inspires a mirrored examination between enlarged radii's early effects versus diminished radii's late-stage behaviors.
 
 \subsection{Timing of application for PUGD}
 \label{subsec:3.3}
@@ -232,10 +257,15 @@ There are three methods to measure when to use PUGD as:
 	算法逻辑：每隔 T 个epoch，计算重采样的泛化间隙 $ \Delta = E\left | L_{val} - L_{train} \right | $ 触发条件：$\Delta > \mu \cdot \Delta _{base}, \Delta _{base} 为初始间隙, \mu 为比例阈值（如2.0） \Delta _{base} = \frac{1}{\xi} \sum_{i=1}^{\xi} \Delta _{i}, \xi = max(3,总epochs x 0.1), Dynamic baseline (segmented weighted average) 动态基线（分段加权平均） $,
 \end{enumerate}
 
-method 2 was gave up due to high computational cost, if use it, the computational cost will not be minimized, but maybe useful for furture research
+method 2 was gave up due to high computational cost, if use it, the computational cost will not be reduced, but maybe useful for furture research
+
+The difference between fine tune pretrained model and the timing idea is that 
+
 
 \subsection{Scale of gradient Tunning}
 \label{subsec:3.4}
+
+\eqref{eq:1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % experiments
@@ -416,8 +446,7 @@ Larger values, however, decrease model performance since the optimization is mai
 
 \section{Conclusions}
 \label{sec:5}
-
-
+This article didn't aims to provide the best parameters, but to provide the enhancement methods RTS 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % bibliography

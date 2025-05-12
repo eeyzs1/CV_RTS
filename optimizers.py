@@ -30,60 +30,60 @@ class PUGDX(torch.optim.Optimizer):
     @torch.no_grad()
     def xp_step(self, zero_grad=True):  
         '''UGD = NGD-FW in Tensor'''
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                p.grad = p.grad / (grad_norm + 1e-12)   
+                p.grad = p.grad * grad_norm_reciprocal   
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
     
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
 
     @torch.no_grad()
     def test_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:       
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                temp_e_w = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                temp_e_w = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(temp_e_w)
                 self.state[i]["e_w"] += temp_e_w
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
     @torch.no_grad()
     def test_last_layer_step(self):
         for group in self.param_groups:
-            abs_grad_norm = self._abs_grad_norm(group)
+            abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal(group)
             for i, p in enumerate(group["params"]):
                 if hasattr(p,'last') and p.last:
                     if p.grad is None: continue
-                    temp_e_w = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                    temp_e_w = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                     p.add_(temp_e_w)
                     self.state[i]["e_w"] += temp_e_w
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -93,9 +93,9 @@ class PUGDX(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -105,7 +105,7 @@ class PUGDX(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 # R for perturbation radius
 class PUGDXR(torch.optim.Optimizer):
@@ -141,30 +141,30 @@ class PUGDXR(torch.optim.Optimizer):
 
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm() / self.alpha
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal() / self.alpha
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = torch.abs(p) * p.grad / (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
                 # p.grad *= self.alpha
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -174,9 +174,9 @@ class PUGDXR(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -186,7 +186,7 @@ class PUGDXR(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 # T for timing
 class PUGDXT(torch.optim.Optimizer):
@@ -211,51 +211,51 @@ class PUGDXT(torch.optim.Optimizer):
     @torch.no_grad()
     def xp_step(self, zero_grad=True):  
         '''UGD = NGD-FW in Tensor'''
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                p.grad = p.grad / (grad_norm + 1e-12)   
+                p.grad = p.grad * grad_norm_reciprocal   
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
     
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
     @torch.no_grad()
     def base_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
     @torch.no_grad()
     def base_step_no_norm(self, zero_grad=False):
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -265,9 +265,9 @@ class PUGDXT(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -277,7 +277,7 @@ class PUGDXT(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 
 
@@ -304,30 +304,31 @@ class PUGDXS(torch.optim.Optimizer):
                 self.alpha = self.min_beta + (self.max_beta - self.min_beta) * sin(epoch/self.max_epochs * pi/2)
             case 'cos':
                 self.alpha = self.min_beta + (self.max_beta - self.min_beta) * cos(epoch/self.max_epochs * pi/2)
+        self.alpha = 1/self.alpha
 
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = torch.abs(p) * p.grad / (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
-                p.grad /= self.alpha
+                p.grad *= self.alpha
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -337,9 +338,9 @@ class PUGDXS(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -349,7 +350,7 @@ class PUGDXS(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 
 
@@ -375,61 +376,61 @@ class PUGDXA(torch.optim.Optimizer):
     @torch.no_grad()
     def xp_step(self, zero_grad=True):  
         '''UGD = NGD-FW in Tensor'''
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                p.grad = p.grad / (grad_norm + 1e-12)   
+                p.grad = p.grad * grad_norm_reciprocal   
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
     
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = 2 * torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = 2 * torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
                 p.grad *= 2
 
     @torch.no_grad()
     def test_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:       
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                temp_e_w = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                temp_e_w = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(temp_e_w)
                 self.state[i]["e_w"] += temp_e_w
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (2 * grad_norm + 1e-12)
+                p.grad = p.grad / (2 * grad_norm_reciprocal + 1e-12)
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
     @torch.no_grad()
     def test_last_layer_step(self):
         for group in self.param_groups:
-            abs_grad_norm = self._abs_grad_norm(group)
+            abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal(group)
             for i, p in enumerate(group["params"]):
                 if hasattr(p,'last') and p.last:
                     if p.grad is None: continue
-                    temp_e_w = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                    temp_e_w = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                     p.add_(temp_e_w)
                     self.state[i]["e_w"] += temp_e_w
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -439,9 +440,9 @@ class PUGDXA(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -451,7 +452,7 @@ class PUGDXA(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 
 
@@ -481,30 +482,30 @@ class PUGDXCOS(torch.optim.Optimizer):
 
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
                 # p.grad *= self.alpha
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -514,9 +515,9 @@ class PUGDXCOS(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -526,7 +527,7 @@ class PUGDXCOS(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 
 class PUGDXSIN(torch.optim.Optimizer):
@@ -555,30 +556,30 @@ class PUGDXSIN(torch.optim.Optimizer):
 
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm = self._abs_grad_norm()
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = torch.abs(p) * p.grad/ (abs_grad_norm + 1e-12)
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
                 # p.grad *= self.alpha
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -588,9 +589,9 @@ class PUGDXSIN(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
     
-    def _abs_grad_norm(self):
+    def _abs_grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -600,7 +601,7 @@ class PUGDXSIN(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)
 
 
 
@@ -627,49 +628,49 @@ class SAMX(torch.optim.Optimizer):
     @torch.no_grad()
     def xp_step(self, zero_grad=True):  
         '''UGD = NGD-FW in Tensor'''
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                p.grad = p.grad / (grad_norm + 1e-12)   
+                p.grad = p.grad * grad_norm_reciprocal   
         self.base_optimizer.step()
         if zero_grad: self.zero_grad()
     
     @torch.no_grad()
     def first_step(self):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                self.state[i]["e_w"] = p.grad/ (grad_norm + 1e-12)
+                self.state[i]["e_w"] = p.grad * grad_norm_reciprocal
                 p.add_(self.state[i]["e_w"])
 
     @torch.no_grad()
     def test_step(self):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:       
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
-                temp_e_w = p.grad/ (grad_norm + 1e-12)
+                temp_e_w = p.grad * grad_norm_reciprocal
                 p.add_(temp_e_w)
                 self.state[i]["e_w"] += temp_e_w
 
     @torch.no_grad()
     def second_step(self, zero_grad=False):
-        grad_norm = self._grad_norm()
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
                 p.sub_(self.state[i]["e_w"])
-                p.grad = p.grad / (grad_norm + 1e-12)
+                p.grad = p.grad * grad_norm_reciprocal
 
         self.base_optimizer.step()
 
         if zero_grad: self.zero_grad()
         
-        return grad_norm.cpu()
+        return grad_norm_reciprocal.cpu()
 
-    def _grad_norm(self):
+    def _grad_norm_reciprocal(self):
         shared_device = self.param_groups[0]["params"][0].device  
         norm = torch.norm(
                     torch.stack([
@@ -679,4 +680,4 @@ class SAMX(torch.optim.Optimizer):
                     ]),
                    p=2
                )
-        return norm
+        return 1/(norm + 1e-12)

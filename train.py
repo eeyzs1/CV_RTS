@@ -530,7 +530,7 @@ def train_model_timing_delta(model, criterion, optimizer, scheduler, num_epochs,
                         delta_base += delta
                     elif epoch == xi:
                         delta_base /= xi
-                    elif epoch % t == 0 and delta > mu * delta_base:
+                    elif epoch > t and delta > mu * delta_base:
                         enable_PUGD = True
                         metrics['enable_pugd_epoch'] = epoch
                         metrics['delta_base'] = delta_base
