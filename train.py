@@ -5,7 +5,7 @@ import numpy as np
 def train_model_org(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
     
     metrics = {
@@ -19,6 +19,7 @@ def train_model_org(model, criterion, optimizer, scheduler, num_epochs, trainloa
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -65,24 +66,26 @@ def train_model_org(model, criterion, optimizer, scheduler, num_epochs, trainloa
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
         # print()
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+    
     return model, metrics
+
 
 def train_model(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
 
     metrics = {
@@ -96,6 +99,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs, trainloader,
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -149,26 +153,26 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs, trainloader,
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
         # print()
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+    
     return model, metrics
-
 
 
 def train_modelt(model, criterion, optimizer, scheduler, start_epochs, num_epochs, trainloader, device, dataset_sizes):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
 
     metrics = {
@@ -182,6 +186,7 @@ def train_modelt(model, criterion, optimizer, scheduler, start_epochs, num_epoch
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -239,24 +244,26 @@ def train_modelt(model, criterion, optimizer, scheduler, start_epochs, num_epoch
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
         # print()
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+    
     return model, metrics
+
 
 def train_model_alpha(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
 
     metrics = {
@@ -270,6 +277,7 @@ def train_model_alpha(model, criterion, optimizer, scheduler, num_epochs, trainl
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -324,25 +332,27 @@ def train_model_alpha(model, criterion, optimizer, scheduler, num_epochs, trainl
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
         # print()
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+    
     return model, metrics
+
 
 #init_t: when to calculate the init_grad_var, gamma: attenuation coefficient, k:sliding window length for how many epochs used for calculating var of grad norm 
 def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes, init_t, gamma, k):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     grad_norms =[]
     best_acc = 0.0
     enable_PUGD = False
@@ -360,6 +370,7 @@ def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, t
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -399,7 +410,7 @@ def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, t
                             loss.backward()
                             optimizer.second_step(zero_grad=True)
                         else:
-                            grad_norms.append(optimizer.base_step(zero_grad=True))
+                            grad_norms.append(1.0/optimizer.base_step(zero_grad=True))
                 # statistics
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
@@ -416,14 +427,14 @@ def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, t
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
                 # print()
                 if not enable_PUGD:
                     if epoch == init_t:
-                        init_grad_var = np.var(grad_norms) 
+                        init_grad_var = gamma * np.var(grad_norms) 
                     elif epoch > k and epoch > init_t:
                         grad_var = np.var(grad_norms[-k:])
-                        if grad_var < gamma * init_grad_var: 
+                        if grad_var < init_grad_var: 
                             enable_PUGD = True
                             metrics['enable_pugd_epoch'] = epoch
                             metrics['init_grad_var'] = init_grad_var
@@ -431,14 +442,15 @@ def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, t
 
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+    
     return model, metrics
 
 
@@ -446,7 +458,7 @@ def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, t
 def train_model_timing_delta(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes, xi, mu, t):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
     delta_base = 0.0
     delta = 0.0
@@ -465,6 +477,7 @@ def train_model_timing_delta(model, criterion, optimizer, scheduler, num_epochs,
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -522,37 +535,39 @@ def train_model_timing_delta(model, criterion, optimizer, scheduler, num_epochs,
             if phase == 'valid': 
                 if epoch_acc > best_acc:
                     best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
                 # print()
                 if not enable_PUGD:
-                    delta = np.abs(metrics['valid']['loss'][-1] - metrics['train']['loss'][-1])
                     if epoch < xi:
-                        delta_base += delta
+                        delta_base += np.abs(metrics['valid']['loss'][-1] - metrics['train']['loss'][-1])
                     elif epoch == xi:
-                        delta_base /= xi
-                    elif epoch > t and delta > mu * delta_base:
-                        enable_PUGD = True
-                        metrics['enable_pugd_epoch'] = epoch
-                        metrics['delta_base'] = delta_base
-                        metrics['delta'] = delta
+                        delta_base = delta_base/xi * mu
+                    elif (epoch + 1) % t == 0:
+                        delta = np.abs(metrics['valid']['loss'][-1] - metrics['train']['loss'][-1]) 
+                        if delta > delta_base:
+                            enable_PUGD = True
+                            metrics['enable_pugd_epoch'] = epoch
+                            metrics['delta_base'] = delta_base
+                            metrics['delta'] = delta
 
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+
     return model, metrics
 
 
 def train_modelx(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes):
     since = time.time()
 
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
 
     metrics = {
@@ -566,6 +581,7 @@ def train_modelx(model, criterion, optimizer, scheduler, num_epochs, trainloader
                  }
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -599,11 +615,11 @@ def train_modelx(model, criterion, optimizer, scheduler, num_epochs, trainloader
                         loss.backward()
                         optimizer.first_step()
                         
-                        for i in range(optimizer.step_x):
-                            outputs = model(inputs)        
-                            loss = criterion(outputs, labels)       
-                            loss.backward()
-                            optimizer.test_step()
+                        # for i in range(optimizer.step_x):
+                        #     outputs = model(inputs)        
+                        #     loss = criterion(outputs, labels)       
+                        #     loss.backward()
+                        #     optimizer.test_step()
                         
                         outputs = model(inputs)        
                         loss = criterion(outputs, labels)       
@@ -624,19 +640,21 @@ def train_modelx(model, criterion, optimizer, scheduler, num_epochs, trainloader
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
         # print()
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
     print('Best val Acc: {:4f}'.format(best_acc))
     metrics['bast_acc'] = best_acc
-    # load best model weights
-    # model.load_state_dict(best_model_wts)
+    model.load_state_dict(best_model_wts)
+    
     return model, metrics
+
 
 def train_modelx_last(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes):
     since = time.time()
@@ -649,10 +667,11 @@ def train_modelx_last(model, criterion, optimizer, scheduler, num_epochs, trainl
         'acc': [] },
     "bast_acc": 0        
                  }
-    # best_model_wts = copy.deepcopy(model.state_dict())
+    best_model_wts = model.state_dict()
     best_acc = 0.0
 
     for epoch in range(num_epochs):
+        start = time.time()
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
@@ -686,11 +705,11 @@ def train_modelx_last(model, criterion, optimizer, scheduler, num_epochs, trainl
                         loss.backward()
                         optimizer.first_step()
                         
-                        for i in range(optimizer.step_x):
-                            outputs = model(inputs)        
-                            loss = criterion(outputs, labels)       
-                            loss.backward()
-                            optimizer.test_last_layer_step()
+                        # for i in range(optimizer.step_x):
+                        #     outputs = model(inputs)        
+                        #     loss = criterion(outputs, labels)       
+                        #     loss.backward()
+                        #     optimizer.test_last_layer_step()
                         
                         outputs = model(inputs)        
                         loss = criterion(outputs, labels)       
@@ -713,12 +732,15 @@ def train_modelx_last(model, criterion, optimizer, scheduler, num_epochs, trainl
             # deep copy the model
             if phase == 'valid' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                # best_model_wts = copy.deepcopy(model.state_dict())
+                best_model_wts = model.state_dict()
         # print()
         if (epoch + 1)%10 == 0:
             torch.cuda.empty_cache()
+        print(time.time() - start)
             
     metrics['bast_acc'] = best_acc
+    model.load_state_dict(best_model_wts)
+
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))

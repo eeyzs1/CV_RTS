@@ -66,11 +66,6 @@ def compare_optimizers_data_collector(model, trainloader, scheduler, device, dat
                             if name == 'PUGDX':
                                 loss.backward()
                                 optimizer.first_step()
-                                for i in range(optimizer.step_x):
-                                    outputs = model(inputs)        
-                                    loss = criterion(outputs, labels)       
-                                    loss.backward()
-                                    optimizer.test_step()
                                 outputs = model(inputs)        
                                 loss = criterion(outputs, labels)       
                                 loss.backward()

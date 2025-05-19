@@ -1,8 +1,20 @@
 \begin{thebibliography}{10}\itemsep=-1pt
 
+\bibitem{chaudhari2017entropysgdbiasinggradientdescent}
+Pratik Chaudhari, Anna Choromanska, Stefano Soatto, Yann LeCun, Carlo Baldassi, Christian Borgs, Jennifer Chayes, Levent Sagun, and Riccardo Zecchina.
+\newblock Entropy-sgd: Biasing gradient descent into wide valleys, 2017.
+
 \bibitem{foret2021sharpnessawareminimizationefficientlyimproving}
 Pierre Foret, Ariel Kleiner, Hossein Mobahi, and Behnam Neyshabur.
 \newblock Sharpness-aware minimization for efficiently improving generalization, 2021.
+
+\bibitem{gastpar2023fantasticgeneralizationmeasures}
+Michael Gastpar, Ido Nachum, Jonathan Shafer, and Thomas Weinberger.
+\newblock Fantastic generalization measures are nowhere to be found, 2023.
+
+\bibitem{jastrzebski2020breakevenpointoptimizationtrajectories}
+Stanislaw Jastrzebski, Maciej Szymczak, Stanislav Fort, Devansh Arpit, Jacek Tabor, Kyunghyun Cho, and Krzysztof Geras.
+\newblock The break-even point on optimization trajectories of deep neural networks, 2020.
 
 \bibitem{ji2020directionalconvergencealignmentdeep}
 Ziwei Ji and Matus Telgarsky.
@@ -24,9 +36,17 @@ Nitish~Shirish Keskar, Dheevatsa Mudigere, Jorge Nocedal, Mikhail Smelyanskiy, a
 Jungmin Kwon, Jeongseop Kim, Hyunseo Park, and In~Kwon Choi.
 \newblock Asam: Adaptive sharpness-aware minimization for scale-invariant learning of deep neural networks, 2021.
 
+\bibitem{li2018visualizinglosslandscapeneural}
+Hao Li, Zheng Xu, Gavin Taylor, Christoph Studer, and Tom Goldstein.
+\newblock Visualizing the loss landscape of neural nets, 2018.
+
 \bibitem{loshchilov2017sgdrstochasticgradientdescent}
 Ilya Loshchilov and Frank Hutter.
 \newblock Sgdr: Stochastic gradient descent with warm restarts, 2017.
+
+\bibitem{maclaurin2015earlystoppingnonparametricvariational}
+Dougal Maclaurin, David Duvenaud, and Ryan~P. Adams.
+\newblock Early stopping is nonparametric variational inference, 2015.
 
 \bibitem{murray2018revisitingnormalizedgradientdescent}
 Ryan Murray, Brian Swenson, and Soummya Kar.

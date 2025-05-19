@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.20)  11 MAY 2025 19:21
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.20)  15 MAY 2025 23:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -228,6 +228,12 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup9
 ) (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
+) (d:/texlive/2024/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip79
+\bibsep=\skip80
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count281
 ) (d:/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
  (d:/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty
@@ -261,20 +267,20 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (d:/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count281
+\c@section@level=\count282
 ) (d:/texlive/2024/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count282
+\etb@tempcnta=\count283
 )
 \@linkdim=\dimen164
-\Hy@linkcounter=\count283
-\Hy@pagecounter=\count284
+\Hy@linkcounter=\count284
+\Hy@pagecounter=\count285
  (d:/texlive/2024/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
 ) (d:/texlive/2024/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count285
+\Hy@SavedSpaceFactor=\count286
  (d:/texlive/2024/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
 )
@@ -306,7 +312,7 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 ))
-\c@Hy@tempcnt=\count286
+\c@Hy@tempcnt=\count287
  (d:/texlive/2024/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -316,7 +322,7 @@ LaTeX Info: Redefining \url on input line 4784.
  (d:/texlive/2024/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
-\Fld@menulength=\count287
+\Fld@menulength=\count288
 \Field@Width=\dimen166
 \Fld@charsize=\dimen167
 Package hyperref Info: Hyper figures OFF on input line 6063.
@@ -330,9 +336,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6093.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count288
-\c@Item=\count289
-\c@Hfootnote=\count290
+\Hy@abspage=\count289
+\c@Item=\count290
+\c@Hfootnote=\count291
 )
 Package hyperref Info: Driver (autodetected): hxetex.
  (d:/texlive/2024/texmf-dist/tex/latex/hyperref/hxetex.def
@@ -341,11 +347,11 @@ File: hxetex.def 2024-01-20 v7.01h Hyperref driver for XeTeX
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \pdfm@box=\box63
-\c@Hy@AnnotLevel=\count291
-\HyField@AnnotCount=\count292
-\Fld@listcount=\count293
-\c@bookmark@seq@number=\count294
-\Hy@SectionHShift=\skip79
+\c@Hy@AnnotLevel=\count292
+\HyField@AnnotCount=\count293
+\Fld@listcount=\count294
+\c@bookmark@seq@number=\count295
+\Hy@SectionHShift=\skip81
 ) (d:/texlive/2024/texmf-dist/tex/latex/cleveref/cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
 Package cleveref Info: `hyperref' support loaded on input line 2370.
@@ -377,118 +383,114 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 )
-LaTeX Font Info:    Trying to load font information for TU+ptm on input line 101.
-LaTeX Font Info:    No file TUptm.fd. on input line 101.
+LaTeX Font Info:    Trying to load font information for TU+ptm on input line 102.
+LaTeX Font Info:    No file TUptm.fd. on input line 102.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 101.
+(Font)              using `TU/lmr/m/n' instead on input line 102.
 
 (d:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
-\g__graphics_track_int=\count295
+\g__graphics_track_int=\count296
 \l__pdf_internal_box=\box64
-\g__pdf_backend_object_int=\count296
-\g__pdf_backend_annotation_int=\count297
-\g__pdf_backend_link_int=\count298
+\g__pdf_backend_object_int=\count297
+\g__pdf_backend_annotation_int=\count298
+\g__pdf_backend_link_int=\count299
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 101.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 102.
  (d:/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
  ABD: EveryShipout initializing macros
-Package hyperref Info: Link coloring ON on input line 101.
+Package backref Info: ** backref set up for natbib ** on input line 102.
+Package hyperref Info: Link coloring ON on input line 102.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 121.
+(Font)              using `TU/ptm/m/n' instead on input line 122.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 121.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 122.
 (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 121.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 122.
  (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 121.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 122.
  (d:/texlive/2024/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 
 LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 127.
+(Font)              using `TU/ptm/m/n' instead on input line 128.
 
-LaTeX Font Info:    Trying to load font information for TU+pcr on input line 131.
-LaTeX Font Info:    No file TUpcr.fd. on input line 131.
+LaTeX Font Info:    Trying to load font information for TU+pcr on input line 132.
+LaTeX Font Info:    No file TUpcr.fd. on input line 132.
 
 LaTeX Font Warning: Font shape `TU/pcr/m/it' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 131.
+(Font)              using `TU/lmr/m/n' instead on input line 132.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--134
-[]\TU/ptm/m/it/10 8-10lines I demonstrate ’Radius-Timing-
+Underfull \hbox (badness 10000) in paragraph at lines 128--135
+[]\TU/ptm/m/it/10 8-10lines We demonstrate ’Radius-Timing-
  []
 
 
-Underfull \hbox (badness 3158) in paragraph at lines 127--134
+Underfull \hbox (badness 3158) in paragraph at lines 128--135
 \TU/ptm/m/it/10 Scale(RTS)’ as algorithmic enhancements to the
  []
 
 
-Underfull \hbox (badness 1048) in paragraph at lines 127--134
+Underfull \hbox (badness 1048) in paragraph at lines 128--135
 \TU/ptm/m/it/10 Perturbated Unit Gradient Descent (PUGD). Op-
  []
 
 
-Underfull \hbox (badness 1436) in paragraph at lines 127--134
+Underfull \hbox (badness 1436) in paragraph at lines 128--135
 \TU/ptm/m/it/10 rate scheduling, systematic adjustment of pertur-
  []
 
 
-Underfull \hbox (badness 1360) in paragraph at lines 127--134
-\TU/ptm/m/it/10 I identified optimal phases for PUGD activation,
- []
-
-
-Underfull \hbox (badness 1253) in paragraph at lines 127--134
+Underfull \hbox (badness 1253) in paragraph at lines 128--135
 \TU/ptm/m/it/10 This work improves PUGD as a computationally
  []
 
 
-Underfull \hbox (badness 6428) in paragraph at lines 138--140
+Underfull \hbox (badness 6428) in paragraph at lines 139--141
 []\TU/ptm/m/it/10 40lines+fig/1page Stochastic Gradient Descent
  []
 
 File: images/SGDvsPUGD.pdf Graphic file (type pdf)
 <use images/SGDvsPUGD.pdf>
-LaTeX Font Info:    Trying to load font information for TU+phv on input line 157.
-LaTeX Font Info:    No file TUphv.fd. on input line 157.
+LaTeX Font Info:    Trying to load font information for TU+phv on input line 156.
+LaTeX Font Info:    No file TUphv.fd. on input line 156.
 
 LaTeX Font Warning: Font shape `TU/phv/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 157.
+(Font)              using `TU/lmr/m/n' instead on input line 156.
 
 [1
 
@@ -497,260 +499,31 @@ LaTeX Font Warning: Font shape `TU/phv/m/n' undefined
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
-Underfull \hbox (badness 1715) in paragraph at lines 193--194
-[]\TU/phv/m/n/10 According to the SHARPNESS-AWARE MINI-
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[3]
-File: images/SGD_LL.pdf Graphic file (type pdf)
-<use images/SGD_LL.pdf>
+ [3]
+File: images/SGD_LLC.pdf Graphic file (type pdf)
+<use images/SGD_LLC.pdf>
+ [4]
+Underfull \vbox (badness 2486) has occurred while \output is active []
 
-Missing character: There is no 基 (U+57FA) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 于 (U+4E8E) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 梯 (U+68AF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 度 (U+5EA6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 统 (U+7EDF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 计 (U+8BA1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 量 (U+91CF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 动 (U+52A8) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 态 (U+6001) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 触 (U+89E6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 发 (U+53D1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 条 (U+6761) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 件 (U+4EF6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 基 (U+57FA) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 于 (U+4E8E) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 泛 (U+6CDB) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 化 (U+5316) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 误 (U+8BEF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 差 (U+5DEE) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 预 (U+9884) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 测 (U+6D4B) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 混 (U+6DF7) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 合 (U+5408) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 策 (U+7B56) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 略 (U+7565) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 计 (U+8BA1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 算 (U+7B97) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 当 (U+5F53) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 前 (U+524D) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 批 (U+6279) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 次 (U+6B21) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 梯 (U+68AF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 度 (U+5EA6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 范 (U+8303) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 数 (U+6570) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 方 (U+65B9) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 差 (U+5DEE) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 滑 (U+6ED1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 动 (U+52A8) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 窗 (U+7A97) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 口 (U+53E3) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 统 (U+7EDF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 计 (U+8BA1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ， (U+FF0C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 如 (U+5982) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 过 (U+8FC7) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 去 (U+53BB) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 个 (U+4E2A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 。 (U+3002) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 触 (U+89E6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 发 (U+53D1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 条 (U+6761) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 件 (U+4EF6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： (U+FF1A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 是 (U+662F) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 训 (U+8BAD) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 练 (U+7EC3) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 初 (U+521D) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 期 (U+671F) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no （ (U+FF08) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 前 (U+524D) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ） (U+FF09) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 梯 (U+68AF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 度 (U+5EA6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 方 (U+65B9) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 差 (U+5DEE) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 均 (U+5747) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 值 (U+503C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ， (U+FF0C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 为 (U+4E3A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 衰 (U+8870) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 减 (U+51CF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 系 (U+7CFB) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 数 (U+6570) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no （ (U+FF08) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 如 (U+5982) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ） (U+FF09) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 。 (U+3002) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 计 (U+8BA1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 算 (U+7B97) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 相 (U+76F8) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 邻 (U+90BB) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 梯 (U+68AF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 度 (U+5EA6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 余 (U+4F59) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 弦 (U+5F26) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 相 (U+76F8) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 似 (U+4F3C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 度 (U+5EA6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 触 (U+89E6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 发 (U+53D1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 条 (U+6761) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 件 (U+4EF6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： (U+FF1A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 如 (U+5982) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 表 (U+8868) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 示 (U+793A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 梯 (U+68AF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 度 (U+5EA6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 方 (U+65B9) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 向 (U+5411) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 持 (U+6301) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 续 (U+7EED) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 一 (U+4E00) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 致 (U+81F4) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 超 (U+8D85) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 过 (U+8FC7) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 阈 (U+9608) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 值 (U+503C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 时 (U+65F6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 启 (U+542F) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 用 (U+7528) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 扰 (U+6270) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 动 (U+52A8) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 。 (U+3002) in font [lmroman10-regular]:mapping=tex-text;!
+File: images/AlphaSch.pdf Graphic file (type pdf)
+<use images/AlphaSch.pdf>
+ [5]
 
-Underfull \hbox (badness 10000) in paragraph at lines 249--251
-[]\TU/phv/m/n/10 Gradient cosine similarity monitoring:
- []
+LaTeX Warning: Reference `sec:dcck:mobilenets' on page 1 undefined on input line 294.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 249--251
-\TU/phv/m/n/10 计算相邻step梯度的余弦相似度 $[] \OML/cmm/m/it/10 ^^R[] \OT1/cmr/m/n/10 = []$ \TU/phv/m/n/10 触发条件：
- []
-
-Missing character: There is no 数 (U+6570) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 学 (U+5B66) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 依 (U+4F9D) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 据 (U+636E) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： (U+FF1A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 训 (U+8BAD) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 练 (U+7EC3) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 损 (U+635F) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 失 (U+5931) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 与 (U+4E0E) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 验 (U+9A8C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 证 (U+8BC1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 损 (U+635F) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 失 (U+5931) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 差 (U+5DEE) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 异 (U+5F02) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 反 (U+53CD) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 映 (U+6620) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 模 (U+6A21) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 型 (U+578B) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 过 (U+8FC7) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 拟 (U+62DF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 合 (U+5408) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 倾 (U+503E) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 向 (U+5411) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 。 (U+3002) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 算 (U+7B97) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 法 (U+6CD5) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 逻 (U+903B) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 辑 (U+8F91) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： (U+FF1A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 每 (U+6BCF) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 隔 (U+9694) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 个 (U+4E2A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ， (U+FF0C) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 计 (U+8BA1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 算 (U+7B97) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 重 (U+91CD) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 采 (U+91C7) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 样 (U+6837) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 的 (U+7684) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 泛 (U+6CDB) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 化 (U+5316) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 间 (U+95F4) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 隙 (U+9699) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 触 (U+89E6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 发 (U+53D1) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 条 (U+6761) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 件 (U+4EF6) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： (U+FF1A) in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no 为 ("4E3A) in font cmr10!
-Missing character: There is no 初 ("521D) in font cmr10!
-Missing character: There is no 始 ("59CB) in font cmr10!
-Missing character: There is no 间 ("95F4) in font cmr10!
-Missing character: There is no 隙 ("9699) in font cmr10!
-Missing character: There is no 为 ("4E3A) in font cmr10!
-Missing character: There is no 比 ("6BD4) in font cmr10!
-Missing character: There is no 例 ("4F8B) in font cmr10!
-Missing character: There is no 阈 ("9608) in font cmr10!
-Missing character: There is no 值 ("503C) in font cmr10!
-Missing character: There is no （ ("FF08) in font cmr10!
-Missing character: There is no 如 ("5982) in font cmr10!
-Missing character: There is no ） ("FF09) in font cmr10!
-Missing character: There is no 总 ("603B) in font cmr10!
-Missing character: There is no 动 ("52A8) in font cmr10!
-Missing character: There is no 态 ("6001) in font cmr10!
-Missing character: There is no 基 ("57FA) in font cmr10!
-Missing character: There is no 线 ("7EBF) in font cmr10!
-Missing character: There is no （ ("FF08) in font cmr10!
-Missing character: There is no 分 ("5206) in font cmr10!
-Missing character: There is no 段 ("6BB5) in font cmr10!
-Missing character: There is no 加 ("52A0) in font cmr10!
-Missing character: There is no 权 ("6743) in font cmr10!
-Missing character: There is no 平 ("5E73) in font cmr10!
-Missing character: There is no 均 ("5747) in font cmr10!
-Missing character: There is no ） ("FF09) in font cmr10!
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--253
-[]\TU/phv/m/n/10 generalization gap monitoring:
- []
+Package natbib Warning: Citation `russakovsky2015imagenet' on page 6 undefined on input line 308.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--253
-\TU/phv/m/n/10 数学依据：训练损失与验证损失的差异反映模型过拟合倾向。 算法逻辑：每隔 T 个epoch，计算重采样的泛化间隙
- []
+Package natbib Warning: Citation `szegedy2015going' on page 6 undefined on input line 316.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--253
-\OT1/cmr/m/n/10 ^^A = \OML/cmm/m/it/10 E []$ \TU/phv/m/n/10 触发条件：$\OT1/cmr/m/n/10 ^^A \OML/cmm/m/it/10 > ^^V \OMS/cmsy/m/n/10 ^^A
- []
+Package natbib Warning: Citation `krizhevsky2012imagenet' on page 6 undefined on input line 316.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--253
-\OT1/cmr/m/n/10 ^^A[]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 ^^A[]\OML/cmm/m/it/10 ; ^^V\OT1/cmr/m/n/10 2\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 0^^A[] = [] [][] ^^A[]\OML/cmm/m/it/10 ; ^^X \OT1/cmr/m/n/10 =
- []
-
-
-Overfull \hbox (82.82281pt too wide) in paragraph at lines 251--253
-\OML/cmm/m/it/10 max\OT1/cmr/m/n/10 (3\OML/cmm/m/it/10 ; epochsx\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 ; Dynamicbaseline\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 segmentedweightedaverage\OT1/cmr/m/n/10 )$\TU/phv/m/n/10 , 
- []
-
-
-LaTeX Warning: Reference `sec:dcck:mobilenets' on page 1 undefined on input line 272.
-
-
-LaTeX Warning: Citation `russakovsky2015imagenet' on page 4 undefined on input line 286.
-
-
-LaTeX Warning: Citation `szegedy2015going' on page 4 undefined on input line 294.
-
-
-LaTeX Warning: Citation `krizhevsky2012imagenet' on page 4 undefined on input line 294.
-
-[4]
-Overfull \hbox (12.80411pt too wide) in paragraph at lines 304--320
+Overfull \hbox (12.80411pt too wide) in paragraph at lines 326--342
  [] 
  []
 
@@ -758,65 +531,78 @@ File: images/resnets-imagenet-params.png Graphic file (type bmp)
 <images/resnets-imagenet-params.png>
 File: images/resnets-imagenet-flops.png Graphic file (type bmp)
 <images/resnets-imagenet-flops.png>
+[6]
 
-LaTeX Warning: Citation `Khosla2011dogs' on page 5 undefined on input line 361.
-
-
-LaTeX Warning: Citation `KrauseStarkDengFei-Fei_3DRR2013' on page 5 undefined on input line 361.
+Package natbib Warning: Citation `Khosla2011dogs' on page 7 undefined on input line 383.
 
 
-LaTeX Warning: Citation `nilsback2008automated' on page 5 undefined on input line 361.
+Package natbib Warning: Citation `KrauseStarkDengFei-Fei_3DRR2013' on page 7 undefined on input line 383.
 
 
-LaTeX Warning: Reference `tab:CIFAR-Mobilenet' on page 1 undefined on input line 372.
+Package natbib Warning: Citation `nilsback2008automated' on page 7 undefined on input line 383.
 
 
-LaTeX Warning: Citation `simonyan2014very' on page 5 undefined on input line 379.
+LaTeX Warning: Reference `tab:CIFAR-Mobilenet' on page 1 undefined on input line 394.
 
 
-LaTeX Warning: Citation `huang2017densely' on page 5 undefined on input line 379.
+Package natbib Warning: Citation `simonyan2014very' on page 7 undefined on input line 401.
 
 
-LaTeX Warning: Citation `sandler2018mobilenetv2' on page 5 undefined on input line 383.
+Package natbib Warning: Citation `huang2017densely' on page 7 undefined on input line 401.
 
 
-LaTeX Warning: Reference `sec:dcck:mobilenets:dcck-s' on page 1 undefined on input line 383.
+Package natbib Warning: Citation `sandler2018mobilenetv2' on page 7 undefined on input line 405.
 
 
-LaTeX Warning: Citation `tan2019efficientnet' on page 5 undefined on input line 384.
+LaTeX Warning: Reference `sec:dcck:mobilenets:dcck-s' on page 1 undefined on input line 405.
 
 
-LaTeX Warning: Citation `tan2019mnasnet' on page 5 undefined on input line 384.
+Package natbib Warning: Citation `tan2019efficientnet' on page 7 undefined on input line 406.
 
 
-LaTeX Warning: Citation `simonyan2014very' on page 5 undefined on input line 393.
+Package natbib Warning: Citation `tan2019mnasnet' on page 7 undefined on input line 406.
 
 
-LaTeX Warning: Citation `huang2017densely' on page 5 undefined on input line 396.
+Package natbib Warning: Citation `simonyan2014very' on page 7 undefined on input line 415.
 
 
-LaTeX Warning: Citation `chollet2017xception' on page 5 undefined on input line 399.
+Package natbib Warning: Citation `huang2017densely' on page 7 undefined on input line 418.
 
 
-LaTeX Warning: Citation `tan2019efficientnet' on page 5 undefined on input line 402.
+Package natbib Warning: Citation `chollet2017xception' on page 7 undefined on input line 421.
 
 
-LaTeX Warning: Citation `tan2019mnasnet' on page 5 undefined on input line 405.
+Package natbib Warning: Citation `tan2019efficientnet' on page 7 undefined on input line 424.
+
+
+Package natbib Warning: Citation `tan2019mnasnet' on page 7 undefined on input line 427.
 
 File: images/dcckv2-alpha.png Graphic file (type bmp)
 <images/dcckv2-alpha.png>
-[5] (./main.bbl (./main.brf)
+[7] (./main.bbl (./main.brf)
 \tf@brf=\write3
 \openout3 = `main.brf'.
 
 
-Underfull \hbox (badness 3919) in paragraph at lines 38--38
+Underfull \hbox (badness 4518) in paragraph at lines 6--6
+[]\TU/phv/m/n/9 Pratik Chaudhari, Anna Choromanska, Stefano
+ []
+
+
+Underfull \hbox (badness 2922) in paragraph at lines 6--6
+\TU/phv/m/n/9 Soatto, Yann LeCun, Carlo Baldassi, Christian
+ []
+
+
+Underfull \hbox (badness 3919) in paragraph at lines 58--58
 []\TU/phv/m/n/9 Behnam Neyshabur, Ruslan Salakhutdinov, and
  []
 
-[6]) [7
+)
 
-] (./main.aux)
+Package natbib Warning: There were undefined citations.
+
+[8] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -829,15 +615,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: 256912B1F2EC99E6289429213C0E60A5;2559.
+(rerunfilecheck)             Checksum: AE4532A3D5ACE627469653BEAACE83BB;2231.
  ) 
 Here is how much of TeX's memory you used:
- 13890 strings out of 474773
- 222615 string characters out of 5761289
- 1954842 words of memory out of 5000000
- 35832 multiletter control sequences out of 15000+600000
- 575165 words of font info for 105 fonts, out of 8000000 for 9000
+ 14259 strings out of 474773
+ 229416 string characters out of 5761289
+ 1951842 words of memory out of 5000000
+ 36203 multiletter control sequences out of 15000+600000
+ 572534 words of font info for 95 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 87i,13n,93p,1211b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,13n,93p,1979b,355s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (7 pages).
+Output written on main.pdf (8 pages).

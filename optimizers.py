@@ -9,16 +9,14 @@ import torch
 
 
 class PUGDX(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, **kwargs):
+    def __init__(self, params, base_optimizer, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDX, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
 
-        
     @torch.no_grad()
     def step(self, closure=None):              
         assert closure is not None, 'There should be a closure'
@@ -109,23 +107,26 @@ class PUGDX(torch.optim.Optimizer):
 
 # R for perturbation radius
 class PUGDXR(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, min_beta = 0.1, max_beta = 3, method = 'sin', max_epochs = 40, **kwargs):
+    def __init__(self, params, base_optimizer, min_beta = 0.1, max_beta = 3, method = 'sin', max_epochs = 40, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDXR, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
         self.max_epochs = max_epochs
         self.min_beta = min_beta
         self.max_beta = max_beta
         self.method = method
         self.update_alpha(0)
 
-    # sin: the alpha range from min to max, cos: range from max to min
+    # sin: the alpha range from min to max, cos: range from max to min, then the magnitude inverse
     def update_alpha(self, epoch):
         match self.method:
+            case 'isin':
+                self.alpha = 1.0/(self.min_beta + (self.max_beta - self.min_beta) * sin(epoch/self.max_epochs * pi/2))
+            case 'icos':
+                self.alpha = 1.0/(self.min_beta + (self.max_beta - self.min_beta) * cos(epoch/self.max_epochs * pi/2))
             case 'sin':
                 self.alpha = self.min_beta + (self.max_beta - self.min_beta) * sin(epoch/self.max_epochs * pi/2)
             case 'cos':
@@ -141,7 +142,7 @@ class PUGDXR(torch.optim.Optimizer):
 
     @torch.no_grad()
     def first_step(self):
-        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal() / self.alpha
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal() * self.alpha
         for group in self.param_groups:
             for i, p in enumerate(group["params"]):
                 if p.grad is None: continue
@@ -190,16 +191,14 @@ class PUGDXR(torch.optim.Optimizer):
 
 # T for timing
 class PUGDXT(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, **kwargs):
+    def __init__(self, params, base_optimizer, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDXT, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
 
-        
     @torch.no_grad()
     def step(self, closure=None):              
         assert closure is not None, 'There should be a closure'
@@ -283,28 +282,30 @@ class PUGDXT(torch.optim.Optimizer):
 
 # S for scale of gradient
 class PUGDXS(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, min_beta = 0.1, max_beta = 3, method = 'sin', max_epochs = 40, **kwargs):
+    def __init__(self, params, base_optimizer, min_beta = 0.1, max_beta = 3, method = 'sin', max_epochs = 40, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDXS, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
         self.max_epochs = max_epochs
         self.min_beta = min_beta
         self.max_beta = max_beta
         self.method = method
         self.update_alpha(0)
 
-    # sin: the alpha range from min to max, cos: range from max to min
+    # sin: the alpha range from min to max, cos: range from max to min, then the magnitude inverse
     def update_alpha(self, epoch):
         match self.method:
+            case 'isin':
+                self.alpha = 1.0/(self.min_beta + (self.max_beta - self.min_beta) * sin(epoch/self.max_epochs * pi/2))
+            case 'icos':
+                self.alpha = 1.0/(self.min_beta + (self.max_beta - self.min_beta) * cos(epoch/self.max_epochs * pi/2))
             case 'sin':
                 self.alpha = self.min_beta + (self.max_beta - self.min_beta) * sin(epoch/self.max_epochs * pi/2)
             case 'cos':
                 self.alpha = self.min_beta + (self.max_beta - self.min_beta) * cos(epoch/self.max_epochs * pi/2)
-        self.alpha = 1/self.alpha
 
     @torch.no_grad()
     def first_step(self):
@@ -355,16 +356,14 @@ class PUGDXS(torch.optim.Optimizer):
 
 
 class PUGDXA(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, **kwargs):
+    def __init__(self, params, base_optimizer, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDXA, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
 
-        
     @torch.no_grad()
     def step(self, closure=None):              
         assert closure is not None, 'There should be a closure'
@@ -457,14 +456,13 @@ class PUGDXA(torch.optim.Optimizer):
 
 
 class PUGDXCOS(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, max_epochs = 40, **kwargs):
+    def __init__(self, params, base_optimizer, max_epochs = 40, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDXCOS, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
         self.max_epochs = max_epochs
         self.alpha = 2
 
@@ -531,14 +529,13 @@ class PUGDXCOS(torch.optim.Optimizer):
 
 
 class PUGDXSIN(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, max_epochs = 40, **kwargs):
+    def __init__(self, params, base_optimizer, max_epochs = 40, **kwargs):
         defaults = dict(**kwargs)
         super(PUGDXSIN, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
         self.max_epochs = max_epochs
         self.alpha = 2
 
@@ -606,14 +603,13 @@ class PUGDXSIN(torch.optim.Optimizer):
 
 
 class SAMX(torch.optim.Optimizer):
-    def __init__(self, params, base_optimizer, step_x = 0, r_ho = 1, **kwargs):
+    def __init__(self, params, base_optimizer, r_ho = 1, **kwargs):
         defaults = dict(**kwargs)
         super(SAMX, self).__init__(params, defaults)
         self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
         self.param_groups = self.base_optimizer.param_groups
         self.wd = self.param_groups[0]['weight_decay']
         self.mom = self.param_groups[0]['momentum']
-        self.step_x = step_x
         self.rho = r_ho
 
         
