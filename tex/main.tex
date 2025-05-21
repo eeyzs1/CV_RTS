@@ -272,7 +272,7 @@ Where T is the total num of epochs, t accounts for how many epochs have been per
 	\includegraphics[width=\columnwidth]{images/AlphaSch.pdf}
 	\caption{Comparison of alpha scheduling strategies
 	\textbf{Top subfigure}: Cosine vs inverse sine annealing
-    \textbf{Bottom row}: Sine vs inverse cosine annealing
+    \textbf{Bottom subfigure}: Sine vs inverse cosine annealing
 	The annotations are the decile-sampled values
 	}
 	\label{fig:AlphaSch}
@@ -297,8 +297,7 @@ default initial weights policy, a random uniform distribution with seed = 42.
 \subsection{Optimizing behaviours comparison}
 \label{subsec:4.1}
 
-To observe the behaviours of (P)UGD and others, this 
-subsection of simulation has been organized into four-folds:  
+To observe the behaviours of (P)UGD and others, this subsection of simulation has been organized into four-folds:  
 IV.A.1) CIFAR-10 training history; IV.A.2) CIFAR-10 loss 
 landscapes in 3D; IV.A.3) CIFAR-10 updating trajectories in 
 2-D; IV.A.4) MNIST updating trajectories with MLPs in 2-D; 
@@ -310,12 +309,37 @@ with models.
 \subsubsection{Perturbation radius}
 \label{subsec:4.1.1}
 
+\begin{figure}[htbp]
+	\center
+	\vspace{-10pt} 
+	\includegraphics[width=\columnwidth]{images/PUGDRadiusInv.pdf}
+	\caption{Perturbation Radius Tuning with Inverse Sine and Inverse Cosine
+	\textbf{Top left}: Pugd vs Pugd Radius inverse sine loss \textbf{Top right}: Pugd vs Pugd Radius inverse sine accuracy
+    \textbf{Middle left}: Pugd vs Pugd Radius inverse cosine loss \textbf{Middle right}: Pugd vs Pugd Radius inverse cosine accuracy
+	\textbf{Bottom left}: Pugd Radius inverse sine vs inverse cosine loss \textbf{Bottom right}: Pugd Radius inverse sine vs inverse cosine accuracy
+	The epochs ranged from 21 to 400
+	}
+	\label{fig:PUGDRadiusInv}
+\end{figure}
+
 \subsubsection{Timing of application}
 \label{subsec:4.1.2}
 
 \subsubsection{Scale of gradient Tunning}
 \label{subsec:4.1.4}
 
+\begin{figure}[htbp]
+	\center
+	\vspace{-10pt} 
+	\includegraphics[width=\columnwidth]{images/PUGDScaleInv.pdf}
+	\caption{Perturbation Scale Tuning with Inverse Sine and Inverse Cosine
+	\textbf{Top left}: Pugd vs Pugd Scale inverse sine loss \textbf{Top right}: Pugd vs Pugd Scale inverse sine accuracy
+    \textbf{Middle left}: Pugd vs Pugd Scale inverse cosine loss \textbf{Middle right}: Pugd vs Pugd Scale inverse cosine accuracy
+	\textbf{Bottom left}: Pugd Scale inverse sine vs inverse cosine loss \textbf{Bottom right}: Pugd Scale inverse sine vs inverse cosine accuracy
+	The epochs ranged from 21 to 400
+	}
+	\label{fig:PUGDScaleInv}
+\end{figure}
 
 \subsubsection{Radius-Timing Scale(RTS)}
 \label{subsec:4.1.3}

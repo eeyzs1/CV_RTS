@@ -747,3 +747,45 @@ def train_modelx_last(model, criterion, optimizer, scheduler, num_epochs, trainl
     print('Best val Acc: {:4f}'.format(best_acc))
 
     return model, metrics
+
+
+
+from torch.cuda.amp  import autocast, GradScaler 
+
+def train_fp16(model, criterion, optimizer, scheduler, num_epochs, trainloader, device, dataset_sizes):
+    # 初始化梯度缩放器（防止下溢）
+    scaler = GradScaler('cuda')
+    
+    for epoch in range(num_epochs):
+        for inputs, labels in trainloader['train']:
+            inputs, labels = inputs.to(device),  labels.to(device) 
+            
+            # 前向传播（自动混合精度）
+            with autocast('cuda', dtype=torch.float16):   # PyTorch 2.3+支持显式指定dtype 
+                outputs = model(inputs)
+                loss = criterion(outputs, labels)
+            
+            # 反向传播与梯度缩放 
+            scaler.scale(loss).backward() 
+            scaler.step(optimizer) 
+            scaler.update() 
+            optimizer.zero_grad() 
+
+# from torch import accelerator
+ 
+# # 初始化加速器（自动检测最优后端）
+# acc = accelerator.Accelerator(
+#     mixed_precision='fp8',  # 支持fp8/fp16/bf16
+#     log_level="DEBUG"
+# )
+ 
+# # 包装模型与数据
+# model, optimizer, trainloader = acc.prepare( 
+#     model, optimizer, trainloader
+# ) 
+ 
+# # 自动处理梯度缩放与设备迁移 
+# with acc.accumulate(model):   # 梯度累积兼容 
+#     outputs = model(inputs)
+#     loss = criterion(outputs, labels)
+#     acc.backward(loss) 
