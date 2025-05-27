@@ -317,10 +317,33 @@ with models.
 	\textbf{Top left}: Pugd vs Pugd Radius inverse sine loss \textbf{Top right}: Pugd vs Pugd Radius inverse sine accuracy
     \textbf{Middle left}: Pugd vs Pugd Radius inverse cosine loss \textbf{Middle right}: Pugd vs Pugd Radius inverse cosine accuracy
 	\textbf{Bottom left}: Pugd Radius inverse sine vs inverse cosine loss \textbf{Bottom right}: Pugd Radius inverse sine vs inverse cosine accuracy
-	The epochs ranged from 21 to 400
+	The epochs ranged from 21 to 400, $\beta_{min}$ set as 0.01 and $\beta_{max}$ set as 2 for both inverse sine and cosine.
 	}
 	\label{fig:PUGDRadiusInv}
 \end{figure}
+
+\begin{figure}[htbp]
+	\center
+	\vspace{-10pt} 
+	\includegraphics[width=\columnwidth]{images/PUGDRadius.pdf}
+	\caption{Perturbation Radius Tuning with Sine and Cosine
+	\textbf{Top left}: Pugd vs Pugd Radius sine loss \textbf{Top right}: Pugd vs Pugd Radius sine accuracy
+    \textbf{Middle left}: Pugd vs Pugd Radius cosine loss \textbf{Middle right}: Pugd vs Pugd Radius cosine accuracy
+	\textbf{Bottom left}: Pugd Radius sine vs cosine loss \textbf{Bottom right}: Pugd Radius sine vs cosine accuracy
+	The epochs ranged from 21 to 400, cosine used $\beta_{min}$ as 0 and $\beta_{max}$ as 1, sine used $\beta_{min}$ as 0 and $\beta_{max}$ as 2.
+	}
+	\label{fig:PUGDRadius}
+\end{figure}
+
+验证集loss上升，acc也上升这种现象很常见，原因是过拟合或者训练验证数据分布不一致导致，即在训练后期，预测的结果趋向于极端，使少数预测错的样本主导了loss，但同时少数样本不影响整体的验证acc情况。
+
+增加训练样本
+增加正则项系数权重，减小过拟合
+加入早停机制，ValLoss上升几个epoch直接停止
+采用Focal Loss
+加入Label Smoothing
+
+\cite{ishida2021needzerotrainingloss}
 
 \subsubsection{Timing of application}
 \label{subsec:4.1.2}
@@ -336,7 +359,7 @@ with models.
 	\textbf{Top left}: Pugd vs Pugd Scale inverse sine loss \textbf{Top right}: Pugd vs Pugd Scale inverse sine accuracy
     \textbf{Middle left}: Pugd vs Pugd Scale inverse cosine loss \textbf{Middle right}: Pugd vs Pugd Scale inverse cosine accuracy
 	\textbf{Bottom left}: Pugd Scale inverse sine vs inverse cosine loss \textbf{Bottom right}: Pugd Scale inverse sine vs inverse cosine accuracy
-	The epochs ranged from 21 to 400
+	The epochs ranged from 21 to 400, inverse cosine used $\beta_{min}$ as 1 and $\beta_{max}$ as 2, inverse sine used $\beta_{min}$ as 0.8 and $\beta_{max}$ as 3.
 	}
 	\label{fig:PUGDScaleInv}
 \end{figure}
