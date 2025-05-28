@@ -105,6 +105,103 @@ class PUGDX(torch.optim.Optimizer):
                )
         return 1/(norm + 1e-12)
 
+
+# R for perturbation radius
+class PUGDXRS(torch.optim.Optimizer):
+    def __init__(self, params, base_optimizer, min_beta_r = 0.1, max_beta_r = 3, min_beta_s = 0.1, max_beta_s = 3, method_r = 'sin', method_s = 'sin', max_epochs = 40, **kwargs):
+        defaults = dict(**kwargs)
+        super(PUGDXRS, self).__init__(params, defaults)
+        self.base_optimizer = base_optimizer(self.param_groups, **kwargs)
+        self.param_groups = self.base_optimizer.param_groups
+        self.wd = self.param_groups[0]['weight_decay']
+        self.mom = self.param_groups[0]['momentum']
+        self.max_epochs = max_epochs
+        self.min_beta_r = min_beta_r
+        self.max_beta_r = max_beta_r
+        self.method_r = method_r
+        self.min_beta_s = min_beta_s
+        self.max_beta_s = max_beta_s
+        self.method_s = method_s
+        self.update_alpha(0)
+
+    # sin: the alpha range from min to max, cos: range from max to min, then the magnitude inverse
+    def update_alpha(self, epoch):
+        match self.method_r:
+            case 'isin':
+                self.alpha_r = 1.0/(self.min_beta_r + (self.max_beta_r - self.min_beta_r) * sin(epoch/self.max_epochs * pi/2))
+            case 'icos':
+                self.alpha_r = 1.0/(self.min_beta_r + (self.max_beta_r - self.min_beta_r) * cos(epoch/self.max_epochs * pi/2))
+            case 'sin':
+                self.alpha_r = self.min_beta_r + (self.max_beta_r - self.min_beta_r) * sin(epoch/self.max_epochs * pi/2)
+            case 'cos':
+                self.alpha_r = self.min_beta_r + (self.max_beta_r - self.min_beta_r) * cos(epoch/self.max_epochs * pi/2)
+        match self.method_s:
+            case 'isin':
+                self.alpha_s = 1.0/(self.min_beta_s + (self.max_beta_s - self.min_beta_s) * sin(epoch/self.max_epochs * pi/2))
+            case 'icos':
+                self.alpha_s = 1.0/(self.min_beta_s + (self.max_beta_s - self.min_beta_s) * cos(epoch/self.max_epochs * pi/2))
+            case 'sin':
+                self.alpha_s = self.min_beta_s + (self.max_beta_s - self.min_beta_s) * sin(epoch/self.max_epochs * pi/2)
+            case 'cos':
+                self.alpha_s = self.min_beta_s + (self.max_beta_s - self.min_beta_s) * cos(epoch/self.max_epochs * pi/2)
+        
+    @torch.no_grad()
+    def step(self, closure=None):              
+        assert closure is not None, 'There should be a closure'
+        closure = torch.enable_grad()(closure)
+        self.first_step()
+        closure()
+        self.second_step(zero_grad=True)
+
+    @torch.no_grad()
+    def first_step(self):
+        abs_grad_norm_reciprocal = self._abs_grad_norm_reciprocal() * self.alpha_r
+        for group in self.param_groups:
+            for i, p in enumerate(group["params"]):
+                if p.grad is None: continue
+                self.state[i]["e_w"] = torch.abs(p) * p.grad * abs_grad_norm_reciprocal
+                p.add_(self.state[i]["e_w"])
+                p.grad *= self.alpha_s
+
+    @torch.no_grad()
+    def second_step(self, zero_grad=False):
+        grad_norm_reciprocal = self._grad_norm_reciprocal()
+        for group in self.param_groups:
+            for i, p in enumerate(group["params"]):
+                if p.grad is None: continue
+                p.sub_(self.state[i]["e_w"])
+                p.grad = p.grad * grad_norm_reciprocal
+
+        self.base_optimizer.step()
+
+        if zero_grad: self.zero_grad()
+        
+        return grad_norm_reciprocal.cpu()
+
+    def _grad_norm_reciprocal(self):
+        shared_device = self.param_groups[0]["params"][0].device  
+        norm = torch.norm(
+                    torch.stack([
+                        p.grad.norm(p=2).to(shared_device)
+                        for group in self.param_groups for p in group["params"]
+                        if p.grad is not None
+                    ]),
+                   p=2
+               )
+        return 1/(norm + 1e-12)
+    
+    def _abs_grad_norm_reciprocal(self):
+        shared_device = self.param_groups[0]["params"][0].device  
+        norm = torch.norm(
+                    torch.stack([
+                        (torch.abs(p)*p.grad).norm(p=2).to(shared_device)
+                        for group in self.param_groups for p in group["params"]
+                        if p.grad is not None
+                    ]),
+                   p=2
+               )
+        return 1/(norm + 1e-12)
+
 # R for perturbation radius
 class PUGDXR(torch.optim.Optimizer):
     def __init__(self, params, base_optimizer, min_beta = 0.1, max_beta = 3, method = 'sin', max_epochs = 40, **kwargs):

@@ -22,6 +22,7 @@ epoch数值低的数据是在我的电脑上训练的，高epoch的数据是在k
 
 timing:按1/5分割，或者valid的acc下降时, 或者acc变化率低于某个值时
 
+cifar-10:
 pugd 400 : 0.9353
 pugdr_icos_2_0.01_400 : 0.9419000000000001
 pugdr_isin_2_0.01_400 : 0.9417000000000001
@@ -30,9 +31,28 @@ pugdr_sin_2.0_0.0_400 : 0.9380000000000001
 
 pugds_icos_2_1_400 : 0.9392
 pugds_isin_3_0.8_400 : 0.9373
-
+pugds_cos :
 pugds_sin_2_0.0_400 : 0.9381
 
+cifar-100:
+pugd 400 : 0.7188
+pugdr_icos : 
+pugdr_isin_2_0.01_400 : 0.7315
+pugdr_cos :
+pugdr_sin_1.0_0.0_400 : 0.7199
+
+pugds_icos_3_0.8_400 : 0.7222000000000001
+pugds_isin_2_0.1_400 : 0.7267
+pugds_cos_1.0_0.0_400 : 0.7209
+pugds_sin :
+
+
+
+
+export HF_HOME=/your/custom/path  # Linux/macOS 
+set HF_HOME=D:\your\custom\path   # Windows 
+from transformers import TRANSFORMERS_CACHE 
+print(TRANSFORMERS_CACHE)
 
 
 Theorem：定理。是文章中重要的数学化的论述，一般有严格的数学证明。

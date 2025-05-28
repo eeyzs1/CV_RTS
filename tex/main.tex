@@ -291,22 +291,19 @@ Scope Clarification: My objective is not to present universally optimal tuning s
 \section{Experiments}
 \label{sec:4}
 
-In this section, we implemented two experiments, including (1) optimizing behaviours comparison and (2) finetuning comparison. The experiments were implemented on open datasets in the equipment with GTX 1060, 6G Gpu RAM, and an i5-8400 CPU processor. In addition, every experiment followed the hyperparameters setting in the learning rate (LR)	= 0.1, weight decay = 0.0005, momentum = 0.9, Nesterov = False, and the learning schedule of cosine annealing \cite{loshchilov2017sgdrstochasticgradientdescent}. Every subject followed the same Pytorch 
+In this section, we implemented two experiments, including (1) optimizing behaviours comparison and (2) finetuning comparison. The experiments were implemented on open datasets in the equipment with GTX 1060 Mobile, 6G Gpu RAM, and an i5-8400 CPU processor. Then were implemented on open datasets in the equipment with GTX 5090 Mobile,
+
+In addition, every experiment followed the hyperparameters setting in the learning rate (LR)	= 0.1, weight decay = 0.0005, momentum = 0.9, Nesterov = False, and the learning schedule of cosine annealing \cite{loshchilov2017sgdrstochasticgradientdescent}. Every subject followed the same Pytorch 
 default initial weights policy, a random uniform distribution with seed = 42. 
 
-\subsection{Optimizing behaviours comparison}
+\subsection{Comparative analysis of optimization strategies for the CIFAR-10 dataset}
 \label{subsec:4.1}
 
-To observe the behaviours of (P)UGD and others, this subsection of simulation has been organized into four-folds:  
-IV.A.1) CIFAR-10 training history; IV.A.2) CIFAR-10 loss 
-landscapes in 3D; IV.A.3) CIFAR-10 updating trajectories in 
-2-D; IV.A.4) MNIST updating trajectories with MLPs in 2-D; 
-by highly referring to the visualization loss landscape work 
-[33]  and animation code in the link 3 . Through these 
-observations, we can get a picture of what (P)UGD can do 
+To observe the behaviours of PUGD with different strategies, this subsection of simulation has been organized into 3-folds:  
+1. Perturbation radius Tuning, 2. Timing of application, 3. Scale of gradient Tunning. Through these observations, we can get a picture of what these strategies can do 
 with models. 
 
-\subsubsection{Perturbation radius}
+\subsubsection{Perturbation radius Tuning}
 \label{subsec:4.1.1}
 
 \begin{figure}[htbp]
@@ -314,26 +311,23 @@ with models.
 	\vspace{-10pt} 
 	\includegraphics[width=\columnwidth]{images/PUGDRadiusInv.pdf}
 	\caption{Perturbation Radius Tuning with Inverse Sine and Inverse Cosine
-	\textbf{Top left}: Pugd vs Pugd Radius inverse sine loss \textbf{Top right}: Pugd vs Pugd Radius inverse sine accuracy
-    \textbf{Middle left}: Pugd vs Pugd Radius inverse cosine loss \textbf{Middle right}: Pugd vs Pugd Radius inverse cosine accuracy
-	\textbf{Bottom left}: Pugd Radius inverse sine vs inverse cosine loss \textbf{Bottom right}: Pugd Radius inverse sine vs inverse cosine accuracy
+	\textbf{Top left (a)}: Pugd vs Pugd Radius inverse sine loss \textbf{Top right (b)}: Pugd vs Pugd Radius inverse sine accuracy
+    \textbf{Middle left (c)}: Pugd vs Pugd Radius inverse cosine loss \textbf{Middle right (d)}: Pugd vs Pugd Radius inverse cosine accuracy
+	\textbf{Bottom left (e)}: Pugd Radius inverse sine vs inverse cosine loss \textbf{Bottom right (f)}: Pugd Radius inverse sine vs inverse cosine accuracy
 	The epochs ranged from 21 to 400, $\beta_{min}$ set as 0.01 and $\beta_{max}$ set as 2 for both inverse sine and cosine.
 	}
 	\label{fig:PUGDRadiusInv}
 \end{figure}
 
-\begin{figure}[htbp]
-	\center
-	\vspace{-10pt} 
-	\includegraphics[width=\columnwidth]{images/PUGDRadius.pdf}
-	\caption{Perturbation Radius Tuning with Sine and Cosine
-	\textbf{Top left}: Pugd vs Pugd Radius sine loss \textbf{Top right}: Pugd vs Pugd Radius sine accuracy
-    \textbf{Middle left}: Pugd vs Pugd Radius cosine loss \textbf{Middle right}: Pugd vs Pugd Radius cosine accuracy
-	\textbf{Bottom left}: Pugd Radius sine vs cosine loss \textbf{Bottom right}: Pugd Radius sine vs cosine accuracy
-	The epochs ranged from 21 to 400, cosine used $\beta_{min}$ as 0 and $\beta_{max}$ as 1, sine used $\beta_{min}$ as 0 and $\beta_{max}$ as 2.
-	}
-	\label{fig:PUGDRadius}
-\end{figure}
+As shown in \cref{fig:PUGDRadiusInv}, both strategies (inverse sine and cosine) consistently outperformed native PUGD. Although the best accuracy improvements were marginal (0.9353 vs. 0.9419/0.9417), two critical patterns emerged:  
+\begin{itemize}
+    \item The performance gap \textit{w.r.t} PUGD widened progressively with more epochs, evidenced by growing differences in both loss and accuracy metrics  (subfigure a, b, c, d).
+    \item Between the two strategies, inverse cosine demonstrated superior loss minimization despite nearly identical accuracy trajectories (subfigure e, f).
+\end{itemize}
+Unfortunately, the experimental results only demonstrate that both strategies can optimize model performance beyond the baseline achieved by the native PUGD method. However, they cannot substantiate the theoretical assumptions proposed in \cref{subsec:3.2}, since the two strategies produced statistically equivalent results. This equivalence suggests that the futher investigation needed.
+
+
+One additional thing has to be noticed is that loss was increased during the accuracy increase after 300 epochs, which was explained by Ishida et al. \cite{ishida2021needzerotrainingloss} as the "overfitting" problem.
 
 验证集loss上升，acc也上升这种现象很常见，原因是过拟合或者训练验证数据分布不一致导致，即在训练后期，预测的结果趋向于极端，使少数预测错的样本主导了loss，但同时少数样本不影响整体的验证acc情况。
 
@@ -343,170 +337,57 @@ with models.
 采用Focal Loss
 加入Label Smoothing
 
-\cite{ishida2021needzerotrainingloss}
+
+Note: The training curves of the initial 20 epochs were excluded from visualization due to their statistically indistinguishable patterns.
+
+\begin{figure}[htbp]
+	\center
+	\vspace{-10pt} 
+	\includegraphics[width=\columnwidth]{images/PUGDRadius.pdf}
+	\caption{Perturbation Radius Tuning with Sine and Cosine
+	\textbf{Top left (a)}: Pugd vs Pugd Radius sine loss \textbf{Top right (b)}: Pugd vs Pugd Radius sine accuracy
+    \textbf{Middle left (c)}: Pugd vs Pugd Radius cosine loss \textbf{Middle right (d)}: Pugd vs Pugd Radius cosine accuracy
+	\textbf{Bottom left (e)}: Pugd Radius sine vs cosine loss \textbf{Bottom right (f)}: Pugd Radius sine vs cosine accuracy
+	The epochs ranged from 21 to 400, cosine used $\beta_{min}$ as 0 and $\beta_{max}$ as 1, sine used $\beta_{min}$ as 0 and $\beta_{max}$ as 2.
+	}
+	\label{fig:PUGDRadius}
+\end{figure}
+
+As shown in \cref{fig:PUGDRadius}, (a) and (b) showed that 
+
+
 
 \subsubsection{Timing of application}
 \label{subsec:4.1.2}
 
 \subsubsection{Scale of gradient Tunning}
-\label{subsec:4.1.4}
+\label{subsec:4.1.3}
 
 \begin{figure}[htbp]
 	\center
 	\vspace{-10pt} 
 	\includegraphics[width=\columnwidth]{images/PUGDScaleInv.pdf}
 	\caption{Perturbation Scale Tuning with Inverse Sine and Inverse Cosine
-	\textbf{Top left}: Pugd vs Pugd Scale inverse sine loss \textbf{Top right}: Pugd vs Pugd Scale inverse sine accuracy
-    \textbf{Middle left}: Pugd vs Pugd Scale inverse cosine loss \textbf{Middle right}: Pugd vs Pugd Scale inverse cosine accuracy
-	\textbf{Bottom left}: Pugd Scale inverse sine vs inverse cosine loss \textbf{Bottom right}: Pugd Scale inverse sine vs inverse cosine accuracy
+	\textbf{Top left (a)}: Pugd vs Pugd Scale inverse sine loss \textbf{Top right (b)}: Pugd vs Pugd Scale inverse sine accuracy
+    \textbf{Middle left (c)}: Pugd vs Pugd Scale inverse cosine loss \textbf{Middle right (d)}: Pugd vs Pugd Scale inverse cosine accuracy
+	\textbf{Bottom left (e)}: Pugd Scale inverse sine vs inverse cosine loss \textbf{Bottom right (f)}: Pugd Scale inverse sine vs inverse cosine accuracy
 	The epochs ranged from 21 to 400, inverse cosine used $\beta_{min}$ as 1 and $\beta_{max}$ as 2, inverse sine used $\beta_{min}$ as 0.8 and $\beta_{max}$ as 3.
 	}
 	\label{fig:PUGDScaleInv}
 \end{figure}
 
-\subsubsection{Radius-Timing Scale(RTS)}
-\label{subsec:4.1.3}
 
-\subsection{Finetuning comparison}
+
+
+\subsection{Radius-Timing Scale(RTS)}
 \label{subsec:4.2}
 
+\subsection{Finetuning comparison}
+\label{subsec:4.3}
 
 
-\begin{table}
-	\begin{center}
-		\begin{tabular}{|l|c|c|c|c|}
-			\hline
-			Network & Original & \DCCK (ours) \\
-			\hline
-			MobileNetV1 \widthFactor{0.25} 		& 51.8 & \bf{53.2} \\
-			MobileNetV1 \widthFactor{0.5}  		& 63.5 & \bf{64.6} \\
-			MobileNetV1 \widthFactor{0.75} 		& 68.2 & \bf{69.2} \\
-			MobileNetV1 \widthFactor{1.0}  		& 70.8 & \bf{71.5} \\
-			\hline
-			MobileNetV2 \widthFactor{1.0} 		& 69.7 & \bf{69.8} \\
-			\hline
-			MobileNetV3-small \widthFactor{1.0} 	& 64.4 & \bf{64.8} \\
-			\hline
-			MobileNetV3-large \widthFactor{1.0} 	& \bf{71.5} & \bf{71.5} \\
-			\hline
-		\end{tabular}
-	\end{center}
-	\caption{%
-		MobileNets on ImageNet.
-		\DCCKU is used for MobileNetV1, and \DCCKS is used for MobileNetV2/V3.
-		Note that \DCCK does not introduce additional parameters.
-	}
-	\label{tab:ImageNet-Mobilenet}
-\end{table}
 
-The results are presented in \Cref{tab:ImageNet-Mobilenet}.
-Again, it can be seen that the \DCCK variants of MobileNets outperform their corresponding baseline models.
-However, the relative improvements are no longer as large as for the \mbox{CIFAR} experiments.
-This effect can be explained by the regularization impact of the dataset itself.
-Considering the \mbox{MobileNetV3-large} results, we note that even if the orthonormal regularization loss seems to be no longer effective, it has no negative influence on the training.
 
-\textbf{ResNets.}
-As noted before, it is possible to directly substitute regular convolution layers in standard networks by \DCCK variants.
-To this end, we analyze the effectiveness of our approach when applied to ResNets on large-scale image databases.
-For the baseline models, we use ResNet-10, ResNet-18, and ResNet-26.
-The \DCCK variants are ResNet-10, ResNet-18, ResNet-34, ResNet-68, and ResNet-102.
-Again, we use the same training protocol and augmentation techniques as described above.
-
-\begin{figure*}
-	\center
-	\includegraphics[width=0.45\textwidth]{images/resnets-imagenet-params.png}~~~~~~~~
-	\includegraphics[width=0.45\textwidth]{images/resnets-imagenet-flops.png}
-	\caption{%
-		ResNets on ImageNet.
-		For the baseline models, we use ResNet-10/18/26.
-		The \DCCK variants are ResNet-10/18/34/68/102.
-	}
-     \label{fig:resnetsImagenetParamsAndFlops}
-\end{figure*}
-
-The results are shown in \Cref{fig:resnetsImagenetParamsAndFlops}, split by parameter count and computational complexity.
-It can be seen that the \DCCKU variants of ResNets significantly outperform the baseline models.
-ResNet-10 and \mbox{ResNet-68+\DCCKU}, for instance, have similar parameter counts, while using \DCCK leads to an accuracy gain of $9.5$ percentage points.
-Another interesting example is ResNet-18 vs. \mbox{ResNet-34+\DCCKU}: both have a comparable accuracy, while the \DCCK model has only about one fifth of the baseline model parameter count.
-
-\subsection{Fine-grained Recognition}
-Apart from large-scale object recognition, we are interested in the task of fine-grained classification, as those datasets usually have no inherent regularization.
-The following experiments are conducted on three well-established benchmark datasets for fine-grained recognition, namely Stanford Dogs \cite{Khosla2011dogs}, Stanford Cars \cite{KrauseStarkDengFei-Fei_3DRR2013}, and Oxford 102 Flowers \cite{nilsback2008automated}.
-We train all models from scratch, since parts of these datasets are a subset of ImageNet.
-In contrast to the ImageNet training protocol, we do not use aggressive data augmentation, since we observed that it severely affects model performance.
-We only augment data via random crops, horizontal flips, and random gamma transform.
-
-We use the same training protocol for all three datasets.
-In particular, we use SGD with momentum set to $0.9$ and a weight decay of $10^{-4}$.
-The initial learning rate is set to $0.1$ and linearly decayed at every epoch such that it approaches zero after a total of $100$ epochs.
-
-\textbf{MobileNets.}
-We use the same model setup as for the \mbox{CIFAR} and ImageNet experiments discussed above.
-The results are shown in \Cref{tab:CIFAR-Mobilenet}.
-Again, all \DCCK models substantially outperform their baseline counterparts.
-In contrast to the CIFAR results, the margin is even larger.
-Therefore, the interpretation of the CIFAR results applies here as well.
-
-\textbf{Other Architectures.}
-We further evaluate the effect of our approach for a variety of state-of-the-art models.
-We replace regular convolution layers in standard networks such as VGG \cite{simonyan2014very} and DenseNet \cite{huang2017densely}.
-
-In \Cref{tab:dogsOthers} we can see that all models greatly benefit from the application of \DCCK.
-Accuracy for \DCCKU can be improved by at least 2 percentage points, while having up to $8.5 \times$ less parameters and a substantial reduction of computational complexity.
-Most of the recently proposed model architectures utilize residual linear bottlenecks \cite{sandler2018mobilenetv2}, which can also be easily equipped with our \DCCKS approach in the same way as for MobileNetV2/V3 (see \Cref{sec:dcck:mobilenets:dcck-s}).
-As can be seen in \Cref{tab:dogsOthers}, our subspace model clearly outperforms the original EfficientNet-B0 \cite{tan2019efficientnet} by $6.5$ percentage points and MnasNet \cite{tan2019mnasnet} by $5$ percentage points with the same number of parameters and computational complexity.
-This shows the effectiveness of our proposed orthonormal regularization of the \DCCKS subspace transform.
-
-\begin{table}
-	\begin{center}
-		\begin{tabular}{|l|c|}
-			\hline
-			Network & Accuracy \\
-			\hline
-			VGG-16 (BN) \cite{simonyan2014very}	& 60.5 \\
-			VGG-16 (BN) (\DCCKU) 				& \bf{62.4} \\
-			\hline
-			DenseNet-121 \cite{huang2017densely}	& 56.9 \\
-			DenseNet-121 (\DCCKU) 				& \bf{59.4} \\
-			\hline
-			Xception* \cite{chollet2017xception}	& 59.6 \\
-			Xception (\DCCKU) 					& \bf{64.3} \\
-			\hline
-			EfficientNet-B0 \cite{tan2019efficientnet}	& 54.7 \\
-			EfficientNet-B0 (\DCCKS)				& \bf{61.2} \\
-			\hline
-			MnasNet \cite{tan2019mnasnet}			& 54.8 \\
-			MnasNet (\DCCKS)						& \bf{59.8} \\
-			\hline
-			\end{tabular}
-		\end{center}
-	\caption{%
-		Results of various architectures and their \DCCK counterparts for the Stanford Dogs dataset.
-		\DCCKU CNNs have fewer parameters and a smaller computational complexity compared to their baseline models.
-		\DCCKS CNNs have the same parameter count and computational complexity as their counterparts.
-		* Commonly used implementation based on DSCs.
-	}
-	\label{tab:dogsOthers}
-\end{table}
-
-\textbf{Influence of the Orthonormal Regularization.}
-To evaluate the influence of the proposed orthonormal regularization loss for \DCCKS models, we conduct an ablation study using MobileNetV3-large.
-In particular, several identical models are trained on the Stanford Dogs dataset using weighting coefficients $\alpha$ in the radius of $10^{-5}, \ldots, 10^{0}$.
-
-\begin{figure}
-	\center
-	\includegraphics[width=1.0\columnwidth]{images/dcckv2-alpha.png}
-	\caption{%
-		Influence of the orthonormal regularization loss on the accuracy for the \DCCKS variant of MobileNetV3-large (red solid line) on Stanford Dogs.
-		The baseline MobileNetV3-large model without \DCCKS is indicated by the black dashed line.
-	}
-     \label{fig:dcckV2Alpha}
-\end{figure}
-
-As can be seen in \Cref{fig:dcckV2Alpha}, by regularizing the subspace components to be orthonormal, model performance can be substantially improved by over $5$ percentage points.
-An optimum is reached for a weighting coefficient of $\alpha=0.1$.
-For smaller values, the influence of the regularization decreases, until it is no longer effective and converges towards the baseline performance.
-Larger values, however, decrease model performance since the optimization is mainly driven by rapidly reaching a solution with an orthonormal basis independently of creating a beneficial joint representation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % conclusions
@@ -515,6 +396,12 @@ Larger values, however, decrease model performance since the optimization is mai
 \section{Conclusions}
 \label{sec:5}
 This article didn't aims to provide the best parameters, but to provide the enhancement methods RTS 
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % bibliography
@@ -526,3 +413,38 @@ This article didn't aims to provide the best parameters, but to provide the enha
 }
 
 \end{document}
+
+
+
+\newpage
+\appendix
+\section{Appendix}
+\label{appendix}
+\subsection{Comparative analysis of optimization strategies for the CIFAR-100 dataset}
+\label{appendix:cifar100}
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|c|c|c|c|}
+			\hline
+			Methods & $\beta_{min}$ & $\beta_{max}$ & Best Accuracy \\
+			\hline
+			PUGD	& None &	& None & \bf{0.7188} \\
+			\hline
+			Radius inverse cosine &  &	&  & \bf{} \\
+			Radius inverse sine 	& 0.01 &	& 2 & \bf{0.7315} \\
+			Radius cosine &  &	&  & \bf{} \\
+			Radius sine 	& 0.0 &	& 1.0 & \bf{0.7199} \\
+			\hline
+			Scale inverse cosine & 0.8 &	& 3 & \bf{0.7222000000000001} \\
+			Scale inverse sine 	& 0.1 &	& 2 & \bf{0.7267} \\
+			Scale cosine & 0.0 &	& 1.0 & \bf{0.7209} \\
+			Scale sine 	&  &	&  & \bf{} \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{%
+		The best accuracy of different strategies for Radius and Scale Tunning
+	}
+	\label{tab:cifar100}
+\end{table}
+
