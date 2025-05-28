@@ -327,16 +327,7 @@ As shown in \cref{fig:PUGDRadiusInv}, both strategies (inverse sine and cosine) 
 Unfortunately, the experimental results only demonstrate that both strategies can optimize model performance beyond the baseline achieved by the native PUGD method. However, they cannot substantiate the theoretical assumptions proposed in \cref{subsec:3.2}, since the two strategies produced statistically equivalent results. This equivalence suggests that the futher investigation needed.
 
 
-One additional thing has to be noticed is that loss was increased during the accuracy increase after 300 epochs, which was explained by Ishida et al. \cite{ishida2021needzerotrainingloss} as the "overfitting" problem.
-
-验证集loss上升，acc也上升这种现象很常见，原因是过拟合或者训练验证数据分布不一致导致，即在训练后期，预测的结果趋向于极端，使少数预测错的样本主导了loss，但同时少数样本不影响整体的验证acc情况。
-
-增加训练样本
-增加正则项系数权重，减小过拟合
-加入早停机制，ValLoss上升几个epoch直接停止
-采用Focal Loss
-加入Label Smoothing
-
+One additional thing has to be noticed is that loss was increased during the accuracy increase after 300 epochs, which was explained by Ishida et al. \cite{ishida2021needzerotrainingloss} as the "overfitting" problem. The reason is overfitting or inconsistent distribution of training validation data, that is, in the later stage of training, the predicted results tend to be extreme, causing a small number of incorrectly predicted samples to dominate the loss, but at the same time, a small number of samples do not affect the overall validation accuracy. Due to the time limitation and the fact that the benchmark (native PUGD) didn't solve this problem, this study is unable to address this issue either.. For subsequent researchers or developers, if you want to overcome this problem, you can try (1) Increase training samples, (2) Increase the weight of regularization coefficients, (3) Add early stopping mechanism \cite{bai2021understandingimprovingearlystopping}, (4) Adopting Focal Loss \cite{lin2018focallossdenseobject}, (5) use Label Smoothing \cite{szegedy2015rethinkinginceptionarchitecturecomputer}
 
 Note: The training curves of the initial 20 epochs were excluded from visualization due to their statistically indistinguishable patterns.
 
