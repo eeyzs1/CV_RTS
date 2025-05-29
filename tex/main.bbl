@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}\itemsep=-1pt
 
+\bibitem{bai2021understandingimprovingearlystopping}
+Yingbin Bai, Erkun Yang, Bo Han, Yanhua Yang, Jiatong Li, Yinian Mao, Gang Niu, and Tongliang Liu.
+\newblock Understanding and improving early stopping for learning with noisy labels, 2021.
+
 \bibitem{chaudhari2017entropysgdbiasinggradientdescent}
 Pratik Chaudhari, Anna Choromanska, Stefano Soatto, Yann LeCun, Carlo Baldassi, Christian Borgs, Jennifer Chayes, Levent Sagun, and Riccardo Zecchina.
 \newblock Entropy-sgd: Biasing gradient descent into wide valleys, 2017.
@@ -11,6 +15,10 @@ Pierre Foret, Ariel Kleiner, Hossein Mobahi, and Behnam Neyshabur.
 \bibitem{gastpar2023fantasticgeneralizationmeasures}
 Michael Gastpar, Ido Nachum, Jonathan Shafer, and Thomas Weinberger.
 \newblock Fantastic generalization measures are nowhere to be found, 2023.
+
+\bibitem{ishida2021needzerotrainingloss}
+Takashi Ishida, Ikko Yamane, Tomoya Sakai, Gang Niu, and Masashi Sugiyama.
+\newblock Do we need zero training loss after achieving zero training error?, 2021.
 
 \bibitem{jastrzebski2020breakevenpointoptimizationtrajectories}
 Stanislaw Jastrzebski, Maciej Szymczak, Stanislav Fort, Devansh Arpit, Jacek Tabor, Kyunghyun Cho, and Krzysztof Geras.
@@ -40,6 +48,10 @@ Jungmin Kwon, Jeongseop Kim, Hyunseo Park, and In~Kwon Choi.
 Hao Li, Zheng Xu, Gavin Taylor, Christoph Studer, and Tom Goldstein.
 \newblock Visualizing the loss landscape of neural nets, 2018.
 
+\bibitem{lin2018focallossdenseobject}
+Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and Piotr Dollár.
+\newblock Focal loss for dense object detection, 2018.
+
 \bibitem{loshchilov2017sgdrstochasticgradientdescent}
 Ilya Loshchilov and Frank Hutter.
 \newblock Sgdr: Stochastic gradient descent with warm restarts, 2017.
@@ -64,6 +76,10 @@ Sebastian Ruder.
 Naresh~K. Sinha and Michael~P. Griscik.
 \newblock A stochastic approximation method.
 \newblock {\em IEEE Transactions on Systems, Man, and Cybernetics}, SMC-1(4):338--344, 1971.
+
+\bibitem{szegedy2015rethinkinginceptionarchitecturecomputer}
+Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens, and Zbigniew Wojna.
+\newblock Rethinking the inception architecture for computer vision, 2015.
 
 \bibitem{Tseng_2022}
 Ching-Hsun Tseng, Hsueh-Cheng Liu, Shin-Jye Lee, and Xiaojun Zeng.
