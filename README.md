@@ -25,23 +25,34 @@ timing:按1/5分割，或者valid的acc下降时, 或者acc变化率低于某个
 cifar-10:
 pugd 400 : 0.9353
 pugdrs_ : 
+Radius:
 pugdr_icos_2_0.01_400 : 0.9419000000000001
 pugdr_isin_2_0.01_400 : 0.9417000000000001
 pugdr_cos_1.5_0.5_400 : 0.9377000000000001
 pugdr_sin_2.0_0.0_400 : 0.9395
 
+Scale:
 pugds_icos_2_1_400 : 0.9392
 pugds_isin_3_0.8_400 : 0.9373
-pugds_cos_1.5_0.0_400 : 9399000000000001
-pugds_sin_2_0.0_400 : 0.9368
+pugds_cos_1.5_0.0_400 : 0.9399000000000001
+pugds_sin_2.0_0.0_400 : 0.9368
+
+Timing: 100 epochs(0-99)
+pugd : 0.9211
+pugdt_delta_100xi10.0mu3_t3 : 9226000000000001, epochs-20(21)
+pugdt_var_100init_t10.0gamma0.2_k10 : 0.925, epochs-11(12)
+
 
 cifar-100:
 pugd 400 : 0.7188
+pugdrs_ : 
+Radius:
 pugdr_icos : 
 pugdr_isin_2_0.01_400 : 0.7315
 pugdr_cos :
 pugdr_sin_1.0_0.0_400 : 0.7199
 
+Scale:
 pugds_icos_3_0.8_400 : 0.7222000000000001
 pugds_isin_2_0.1_400 : 0.7267
 pugds_cos_1.0_0.0_400 : 0.7209
