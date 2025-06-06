@@ -329,7 +329,7 @@ Note: The training curves of the initial 20 epochs were excluded from visualizat
 	\caption{Perturbation Radius Tuning with Sine and Cosine
 	\textbf{(a)}: Pugd vs Pugd Radius sine loss \textbf{(b)}: Pugd vs Pugd Radius sine accuracy
     \textbf{(c)}: Pugd vs Pugd Radius cosine loss \textbf{(d)}: Pugd vs Pugd Radius cosine accuracy
-	\textbf{(e)}: Pugd Radius sine vs cosine loss \textbf{(f)}: Pugd Radius sine vs cosine accuracy. The epochs ranged from 21 to 400, cosine used $\beta_{min}$ as 0 and $\beta_{max}$ as 1, sine used $\beta_{min}$ as 0 and $\beta_{max}$ as 2.}
+	\textbf{(e)}: Pugd Radius sine vs cosine loss \textbf{(f)}: Pugd Radius sine vs cosine accuracy. The epochs ranged from 21 to 400, cosine used $\beta_{min}$ as 0.5 and $\beta_{max}$ as 1.5, sine used $\beta_{min}$ as 0 and $\beta_{max}$ as 2.}
 	\vspace{-15pt} 
 	\label{fig:PUGDRadius}
 \end{figure}
@@ -356,7 +356,18 @@ As shown in \cref{fig:PUGDRadius}, (a) and (b) showed that
 	\label{fig:PUGDScaleInv}
 \end{figure}
 
-
+\begin{figure}[htbp]
+	\center
+	\vspace{-10pt} 
+	\includegraphics[width=\columnwidth]{images/PUGDScale.pdf}
+	\caption{Perturbation Scale Tuning with Inverse Sine and Inverse Cosine
+	\textbf{(a)}: Pugd vs Pugd Scale inverse sine loss \textbf{(b)}: Pugd vs Pugd Scale inverse sine accuracy
+    \textbf{(c)}: Pugd vs Pugd Scale inverse cosine loss \textbf{(d)}: Pugd vs Pugd Scale inverse cosine accuracy
+	\textbf{(e)}: Pugd Scale inverse sine vs inverse cosine loss \textbf{(f)}: Pugd Scale inverse sine vs inverse cosine accuracy
+	The epochs ranged from 21 to 400, inverse cosine used $\beta_{min}$ as 1 and $\beta_{max}$ as 2, inverse sine used $\beta_{min}$ as 0.8 and $\beta_{max}$ as 3.
+	}
+	\label{fig:PUGDScale}
+\end{figure}
 
 
 \subsection{Radius-Timing Scale(RTS)}
@@ -436,13 +447,13 @@ This article didn't aims to provide the best parameters, but to provide the enha
 			\hline
 			Radius inverse cosine &	0.01	&	2	& \bf{0.9419} \\
 			Radius inverse sine 	&	0.01	&	2	& \bf{0.9417} \\
-			Radius cosine &	0.0	&	1.0	& \bf{0.} \\
+			Radius cosine &	0.5	&	1.5	& \bf{0.9377} \\
 			Radius sine 	&	0.0	&	2.0	& \bf{0.9395} \\
 			\hline
 			Scale inverse cosine &	1	&	2	& \bf{0.9392} \\
 			Scale inverse sine 	&	0.8	&	3	& \bf{0.9373} \\
-			Scale cosine &	&	& \bf{} \\
-			Scale sine 	&		&		& \bf{} \\
+			Scale cosine &	0.0	&	1.5	& \bf{0.9399} \\
+			Scale sine 	&	0.0	&	2.0	& \bf{0.9368} \\
 			\hline
 		\end{tabular}
 	\end{center}
