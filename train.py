@@ -355,6 +355,7 @@ def train_model_timing_var(model, criterion, optimizer, scheduler, num_epochs, t
     best_model_wts = model.state_dict()
     grad_norms =[]
     best_acc = 0.0
+    init_grad_var = -1
     enable_PUGD = False
     metrics = {
     'train': {
@@ -462,6 +463,7 @@ def train_model_timing_delta(model, criterion, optimizer, scheduler, num_epochs,
     best_acc = 0.0
     delta_base = 0.0
     delta = 0.0
+    delta_base = -1
     enable_PUGD = False
     metrics = {
     'train': {
