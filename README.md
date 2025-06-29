@@ -44,19 +44,19 @@ pugdt_var_100init_t10.0gamma0.2_k10 : 0.925, epochs-11(12)
 
 
 cifar-100:
-pugd 400 : 0.7188
+pugd 400 : 0.7223
 pugdrs_ : 
 Radius:
-pugdr_icos : 
+pugdr_icos_1_0.3_400 : 0.7256
 pugdr_isin_2_0.01_400 : 0.7315
-pugdr_cos :
-pugdr_sin_1.0_0.0_400 : 0.7199
+pugdr_cos_2.0_1.0_400 : 0.7229
+pugdr_sin_2.0_0.0_400 : 0.7233
 
 Scale:
 pugds_icos_3_0.8_400 : 0.7222000000000001
-pugds_isin_2_0.1_400 : 0.7267
-pugds_cos_1.0_0.0_400 : 0.7209
-pugds_sin :
+pugds_isin_2_0.1_400 : 0.7292000000000001
+pugds_cos_3.0_1.5_400 : 0.7264
+pugds_sin_2.0_1.4_400 : 0.7255
 
 
 
