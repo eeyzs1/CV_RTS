@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.20)  29 MAY 2025 12:19
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.20)  24 JUN 2025 17:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -12,14 +12,14 @@ Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (d:/texlive/2024/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count188
-\c@section=\count189
-\c@subsection=\count190
-\c@subsubsection=\count191
-\c@paragraph=\count192
-\c@subparagraph=\count193
-\c@figure=\count194
-\c@table=\count195
+\c@part=\count184
+\c@section=\count185
+\c@subsection=\count186
+\c@subsubsection=\count187
+\c@paragraph=\count188
+\c@subparagraph=\count189
+\c@figure=\count190
+\c@table=\count191
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
@@ -41,19 +41,19 @@ CVPR 8.5 x 11-Inch Proceedings Style `cvpr.sty'.
 \@ctmp=\skip50
 \@figindent=\skip51
 \cvprrulerbox=\box51
-\cvprrulercount=\count196
+\cvprrulercount=\count192
 \cvprruleroffset=\dimen141
 \cv@lineheight=\dimen142
 \cv@boxheight=\dimen143
 \cv@tmpbox=\box52
-\cv@refno=\count197
-\cv@tot=\count198
-\cv@tmpc@=\count199
-\cv@tmpc=\count266
+\cv@refno=\count193
+\cv@tot=\count194
+\cv@tmpc@=\count195
+\cv@tmpc=\count196
 ) (d:/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip52
-\multirow@cntb=\count267
+\multirow@cntb=\count197
 \multirow@dima=\skip53
 \bigstrutjot=\dimen144
 ) (./math_commands.tex (d:/texlive/2024/texmf-dist/tex/latex/amsmath/amsmath.sty
@@ -73,14 +73,14 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ) (d:/texlive/2024/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count268
+\inf@bad=\count198
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count269
-\leftroot@=\count270
+\uproot@=\count199
+\leftroot@=\count266
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count271
-\DOTSCASE@=\count272
+\classnum@=\count267
+\DOTSCASE@=\count268
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -93,20 +93,20 @@ LaTeX Info: Redefining \Bigg on input line 725.
 \big@size=\dimen147
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count273
+\macc@depth=\count269
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count274
+\c@MaxMatrixCols=\count270
 \dotsspace@=\muskip16
-\c@parentequation=\count275
-\dspbrk@lvl=\count276
+\c@parentequation=\count271
+\dspbrk@lvl=\count272
 \tag@help=\toks19
-\row@=\count277
-\column@=\count278
-\maxfields@=\count279
+\row@=\count273
+\column@=\count274
+\maxfields@=\count275
 \andhelp@=\toks20
 \eqnshift@=\dimen148
 \alignsep@=\dimen149
@@ -138,7 +138,7 @@ Package bm Info: No bold for \U/msb/m/n, using \pmb.
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 )
 LaTeX Font Info:    Overwriting math alphabet `\mathsfit' in version `bold'
-(Font)                  OT1/cmss/m/sl --> OT1/cmss/bx/n on input line 314.
+(Font)                  TU/lmss/m/sl --> TU/lmss/bx/n on input line 314.
 ) (d:/texlive/2024/texmf-dist/tex/latex/psnfss/times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 ) (d:/texlive/2024/texmf-dist/tex/latex/graphics/epsfig.sty
@@ -152,9 +152,9 @@ Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 ) (d:/texlive/2024/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 107.
- (d:/texlive/2024/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+Package graphics Info: Driver file: xetex.def on input line 107.
+ (d:/texlive/2024/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2022/09/22 v5.0n Graphics/color driver for xetex
 ))
 \Gin@req@height=\dimen154
 \Gin@req@width=\dimen155
@@ -162,15 +162,18 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 \epsfxsize=\dimen156
 \epsfysize=\dimen157
 ) (d:/texlive/2024/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
 Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count280
+\c@AlgoLine=\count276
  (d:/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
 \algocf@hangindent=\skip57
  (d:/texlive/2024/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count281
+\c@checkoddpage=\count277
 ) (d:/texlive/2024/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
 )
@@ -204,9 +207,9 @@ Package: relsize 2013/03/29 ver 4.1
 \algoheightrule=\skip73
 \algotitleheightruledefault=\skip74
 \algotitleheightrule=\skip75
-\c@algocfline=\count282
-\c@algocfproc=\count283
-\c@algocf=\count284
+\c@algocfline=\count278
+\c@algocfproc=\count279
+\c@algocf=\count280
 \algocf@algoframe=\box61
 \algocf@algobox=\box62
 ) (d:/texlive/2024/texmf-dist/tex/latex/amscls/amsthm.sty
@@ -248,16 +251,16 @@ Package caption Warning: Unknown document class (or package),
 (caption)                standard defaults will be used.
 See the caption package documentation for explanation.
 
-\c@caption@flags=\count285
-\c@continuedfloat=\count286
+\c@caption@flags=\count281
+\c@continuedfloat=\count282
 )
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count287
+\c@subfigure=\count283
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count288
+\c@subtable=\count284
 ) (d:/texlive/2024/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count289
+\c@float@type=\count285
 \float@exts=\toks29
 \float@box=\box63
 \@float@everytoks=\toks30
@@ -267,7 +270,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip79
 \bibsep=\skip80
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count290
+\c@NAT@ctr=\count286
 ) (d:/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
  (d:/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty
@@ -287,7 +290,7 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode not found.
 )) (d:/texlive/2024/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 ) (d:/texlive/2024/texmf-dist/tex/latex/auxhook/auxhook.sty
@@ -301,26 +304,22 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (d:/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count291
+\c@section@level=\count287
 ) (d:/texlive/2024/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count292
+\etb@tempcnta=\count288
 )
 \@linkdim=\dimen172
-\Hy@linkcounter=\count293
-\Hy@pagecounter=\count294
+\Hy@linkcounter=\count289
+\Hy@pagecounter=\count290
  (d:/texlive/2024/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
-Now handling font encoding PD1 ...
-... no UTF-8 mapping file for font encoding PD1
 ) (d:/texlive/2024/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count295
+\Hy@SavedSpaceFactor=\count291
  (d:/texlive/2024/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
-Now handling font encoding PU ...
-... no UTF-8 mapping file for font encoding PU
 )
 Package hyperref Info: Option `breaklinks' set `true' on input line 4062.
 
@@ -350,7 +349,7 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 ))
-\c@Hy@tempcnt=\count296
+\c@Hy@tempcnt=\count292
  (d:/texlive/2024/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -360,7 +359,7 @@ LaTeX Info: Redefining \url on input line 4784.
  (d:/texlive/2024/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
-\Fld@menulength=\count297
+\Fld@menulength=\count293
 \Field@Width=\dimen174
 \Fld@charsize=\dimen175
 Package hyperref Info: Hyper figures OFF on input line 6063.
@@ -374,15 +373,21 @@ Package hyperref Info: PDF/A mode OFF on input line 6093.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count298
-\c@Item=\count299
-\c@Hfootnote=\count300
+\Hy@abspage=\count294
+\c@Item=\count295
+\c@Hfootnote=\count296
 )
-Package hyperref Info: Driver (autodetected): hpdftex.
- (d:/texlive/2024/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2024-01-20 v7.01h Hyperref driver for pdfTeX
-\Fld@listcount=\count301
-\c@bookmark@seq@number=\count302
+Package hyperref Info: Driver (autodetected): hxetex.
+ (d:/texlive/2024/texmf-dist/tex/latex/hyperref/hxetex.def
+File: hxetex.def 2024-01-20 v7.01h Hyperref driver for XeTeX
+ (d:/texlive/2024/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+)
+\pdfm@box=\box65
+\c@Hy@AnnotLevel=\count297
+\HyField@AnnotCount=\count298
+\Fld@listcount=\count299
+\c@bookmark@seq@number=\count300
 \Hy@SectionHShift=\skip81
 ) (d:/texlive/2024/texmf-dist/tex/latex/cleveref/cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -404,10 +409,9 @@ Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
  (d:/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 274.
+Package xcolor Info: Driver file: xetex.def on input line 274.
  (d:/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
 Package xcolor Info: Model `RGB' extended on input line 1366.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
@@ -416,191 +420,184 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 104.
- (d:/texlive/2024/texmf-dist/tex/latex/psnfss/ot1ptm.fd
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) (d:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count303
-\l__pdf_internal_box=\box65
+LaTeX Font Info:    Trying to load font information for TU+ptm on input line 100.
+LaTeX Font Info:    No file TUptm.fd. on input line 100.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 100.
+
+(d:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
+\g__graphics_track_int=\count301
+\l__pdf_internal_box=\box66
+\g__pdf_backend_object_int=\count302
+\g__pdf_backend_annotation_int=\count303
+\g__pdf_backend_link_int=\count304
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
- ABD: EveryShipout initializing macros (d:/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count304
-\scratchdimen=\dimen176
-\scratchbox=\box66
-\nofMPsegments=\count305
-\nofMParguments=\count306
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count307
-\MPscratchDim=\dimen177
-\MPnumerator=\count308
-\makeMPintoPDFobject=\count309
-\everyMPtoPDFconversion=\toks32
-) (d:/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (d:/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-))
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 100.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 100.
+ (d:/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+ ABD: EveryShipout initializing macros
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package backref Info: ** backref set up for natbib ** on input line 104.
-Package hyperref Info: Link coloring ON on input line 104.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 124.
- (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+Package backref Info: ** backref set up for natbib ** on input line 100.
+Package hyperref Info: Link coloring ON on input line 100.
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 120.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 120.
+(d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 124.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 120.
  (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 124.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 120.
  (d:/texlive/2024/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 134.
- (d:/texlive/2024/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <10> not available
-(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 134.
-<images/SGDvsPUGD.pdf, id=11, 438.65866pt x 322.9233pt>
+
+LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 126.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--129
+[]\TU/ptm/m/it/10 8-10lines We demonstrate ’Radius-Timing-
+ []
+
+
+Underfull \hbox (badness 3158) in paragraph at lines 126--129
+\TU/ptm/m/it/10 Scale(RTS)’ as algorithmic enhancements to the
+ []
+
+
+Underfull \hbox (badness 1048) in paragraph at lines 126--129
+\TU/ptm/m/it/10 Perturbated Unit Gradient Descent (PUGD). Op-
+ []
+
+LaTeX Font Info:    Trying to load font information for TU+pcr on input line 130.
+LaTeX Font Info:    No file TUpcr.fd. on input line 130.
+
+LaTeX Font Warning: Font shape `TU/pcr/m/it' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 130.
+
+
+Underfull \hbox (badness 6428) in paragraph at lines 136--138
+[]\TU/ptm/m/it/10 40lines+fig/1page Stochastic Gradient Descent
+ []
+
 File: images/SGDvsPUGD.pdf Graphic file (type pdf)
 <use images/SGDvsPUGD.pdf>
-Package pdftex.def Info: images/SGDvsPUGD.pdf  used on input line 147.
-(pdftex.def)             Requested size: 237.13594pt x 174.56813pt.
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 156.
- (d:/texlive/2024/texmf-dist/tex/latex/psnfss/ot1phv.fd
-File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
-) [1{d:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}
+LaTeX Font Info:    Trying to load font information for TU+phv on input line 152.
+LaTeX Font Info:    No file TUphv.fd. on input line 152.
+
+LaTeX Font Warning: Font shape `TU/phv/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 152.
+
+[1
 
 
- <./images/SGDvsPUGD.pdf>]
-Underfull \hbox (badness 2237) in paragraph at lines 161--162
-\OT1/ptm/m/n/10 and tim-ing con-trol yields syn-er-gis-tic ef-fects and
- []
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \hbox (badness 1221) in paragraph at lines 170--174
-[]\OT1/ptm/m/n/10 Since Stochas-tic Gra-di-ent De-scent (SGD) [[]] first
- []
-
-[2]
-<images/SGD_LLC.pdf, id=92, 264.56783pt x 259.83136pt>
+ [2]
 File: images/SGD_LLC.pdf Graphic file (type pdf)
 <use images/SGD_LLC.pdf>
-Package pdftex.def Info: images/SGD_LLC.pdf  used on input line 227.
-(pdftex.def)             Requested size: 237.13594pt x 232.89453pt.
- [3 <./images/SGD_LLC.pdf>]
-Underfull \vbox (badness 1082) has occurred while \output is active []
-
- [4]
-<images/AlphaSch.pdf, id=139, 257.45876pt x 327.95773pt>
+ [3] [4]
 File: images/AlphaSch.pdf Graphic file (type pdf)
 <use images/AlphaSch.pdf>
-Package pdftex.def Info: images/AlphaSch.pdf  used on input line 270.
-(pdftex.def)             Requested size: 237.13594pt x 302.07506pt.
-
-Underfull \hbox (badness 1194) in paragraph at lines 282--283
-\OT1/ptm/m/n/10 [[]] the-o-ret-i-cally proved, uni-formly tight gen-er-al-iza-tion
- []
-
-<images/PUGDRadiusInv.pdf, id=145, 453.7149pt x 493.63983pt>
-File: images/PUGDRadiusInv.pdf Graphic file (type pdf)
-<use images/PUGDRadiusInv.pdf>
-Package pdftex.def Info: images/PUGDRadiusInv.pdf  used on input line 304.
-(pdftex.def)             Requested size: 237.13594pt x 258.0048pt.
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 314.
-(d:/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [5 <./images/AlphaSch.pdf>]
-<images/PUGDRadius.pdf, id=199, 429.87585pt x 493.63983pt>
-File: images/PUGDRadius.pdf Graphic file (type pdf)
-<use images/PUGDRadius.pdf>
-Package pdftex.def Info: images/PUGDRadius.pdf  used on input line 328.
-(pdftex.def)             Requested size: 237.13594pt x 272.31624pt.
-<images/PUGDScaleInv.pdf, id=201, 450.9546pt x 493.63983pt>
-File: images/PUGDScaleInv.pdf Graphic file (type pdf)
-<use images/PUGDScaleInv.pdf>
-Package pdftex.def Info: images/PUGDScaleInv.pdf  used on input line 349.
-(pdftex.def)             Requested size: 237.13594pt x 259.57907pt.
- (./main.bbl (./main.brf)
-\tf@brf=\write3
-\openout3 = `main.brf'.
-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6 <./images/PUGDRadiusInv.pdf> <./images/PUGDRadius.pdf>]
-Underfull \hbox (badness 3260) in paragraph at lines 46--46
-[]\OT1/ptm/m/n/9 Jungmin Kwon, Jeongseop Kim, Hyun-seo Park, and
+ [5]
+
+LaTeX Warning: File `images/PUGDRadiusInv.pdf' not found on input line 300.
+
+./main.tex:300: Unable to load picture or PDF file 'images/PUGDRadiusInv.pdf'.
+<to be read again> 
+                   }
+l.300 ...h=\columnwidth]{images/PUGDRadiusInv.pdf}
+                                                  
+The requested image couldn't be read because
+it was not a recognized image format.
+
+
+./main.tex:300: Package graphics Error: Division by 0.
+
+See the graphics package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.300 ...h=\columnwidth]{images/PUGDRadiusInv.pdf}
+                                                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+File: images/PUGDRadiusInv.pdf Graphic file (type pdf)
+<use images/PUGDRadiusInv.pdf>
+./main.tex:300: Unable to load picture or PDF file 'images/PUGDRadiusInv.pdf'.
+<to be read again> 
+                   \GPT@clipend 
+l.300 ...h=\columnwidth]{images/PUGDRadiusInv.pdf}
+                                                  
+The requested image couldn't be read because
+it was not a recognized image format.
+
+
+Underfull \hbox (badness 1077) in paragraph at lines 308--309
+\TU/phv/m/n/10 (0.9353 vs. 0.9419/0.9417), two critical patterns
  []
 
 
-Underfull \hbox (badness 4569) in paragraph at lines 83--83
-[]\OT1/ptm/m/n/9 Christian Szegedy, Vin-cent Van-houcke, Sergey Ioffe,
- []
+LaTeX Warning: File `images/PUGDRadius.pdf' not found on input line 324.
 
-) [7 <./images/PUGDScaleInv.pdf>]
-<images/PUGD_LLC10.pdf, id=280, 261.99115pt x 259.83136pt>
-File: images/PUGD_LLC10.pdf Graphic file (type pdf)
-<use images/PUGD_LLC10.pdf>
-Package pdftex.def Info: images/PUGD_LLC10.pdf  used on input line 405.
-(pdftex.def)             Requested size: 237.14105pt x 165.99414pt.
-<images/PUGDRISIN_LLC10.pdf, id=281, 262.16383pt x 259.83136pt>
-File: images/PUGDRISIN_LLC10.pdf Graphic file (type pdf)
-<use images/PUGDRISIN_LLC10.pdf>
-Package pdftex.def Info: images/PUGDRISIN_LLC10.pdf  used on input line 412.
-(pdftex.def)             Requested size: 237.14134pt x 165.99414pt.
-<images/PUGDRICOS_LLC10.pdf, id=282, 261.32101pt x 259.83136pt>
-File: images/PUGDRICOS_LLC10.pdf Graphic file (type pdf)
-<use images/PUGDRICOS_LLC10.pdf>
-Package pdftex.def Info: images/PUGDRICOS_LLC10.pdf  used on input line 419.
-(pdftex.def)             Requested size: 237.14058pt x 165.99414pt.
- [8 <./images/PUGD_LLC10.pdf> <./images/PUGDRISIN_LLC10.pdf> <./images/PUGDRICOS_LLC10.pdf>] (./main.aux)
- ***********
-LaTeX2e <2023-11-01> patch level 1
-L3 programming layer <2024-02-20>
- ***********
-Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: A703CD50807804F349077A08237C45FD;2691.
- ) 
-Here is how much of TeX's memory you used:
- 16232 strings out of 474116
- 265227 string characters out of 5747717
- 1957190 words of memory out of 5000000
- 38279 multiletter control sequences out of 15000+600000
- 597531 words of font info for 128 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 90i,11n,93p,1981b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb><d:/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb><d:/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><d:/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><d:/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (8 pages, 3204114 bytes).
-PDF statistics:
- 417 PDF objects out of 1000 (max. 8388607)
- 315 compressed objects within 4 object streams
- 64 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+./main.tex:324: Unable to load picture or PDF file 'images/PUGDRadius.pdf'.
+<to be read again> 
+                   }
+l.324 ...idth=\columnwidth]{images/PUGDRadius.pdf}
+                                                  
+The requested image couldn't be read because
+it was not a recognized image format.
 
+
+./main.tex:324: Package graphics Error: Division by 0.
+
+See the graphics package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.324 ...idth=\columnwidth]{images/PUGDRadius.pdf}
+             
