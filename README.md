@@ -1,4 +1,4 @@
-# CV_TRY
+# CV_RTS
 
 3d loss landscape
 训练模型收敛后用theta = θ(α,β)=θ ∗+αd1+βd2
@@ -37,6 +37,8 @@ pugds_isin_3_0.8_400 : 0.9373
 pugds_cos_1.5_0.0_400 : 0.9399000000000001
 pugds_sin_2.0_0.0_400 : 0.9368
 
+
+
 Timing: 100 epochs(0-99)
 pugd : 0.9211
 pugdt_delta_100xi10.0mu3_t3 : 9226000000000001, epochs-20(21)
@@ -49,17 +51,18 @@ pugdrs_ :
 Radius:
 pugdr_icos_1_0.3_400 : 0.7256
 pugdr_isin_2_0.01_400 : 0.7315
-pugdr_cos_2.0_1.0_400 : 0.7229
+pugdr_cos_3.0_0.0_400 : 0.7234
 pugdr_sin_2.0_0.0_400 : 0.7233
 
 Scale:
-pugds_icos_3_0.8_400 : 0.7222000000000001
+pugds_icos_1.0_0.01_400 : 0.7238
 pugds_isin_2_0.1_400 : 0.7292000000000001
 pugds_cos_3.0_1.5_400 : 0.7264
 pugds_sin_2.0_1.4_400 : 0.7255
 
-
-
+Radius and scale:
+pugdrs_isin2_0.01_isin2.0_0.1_400 : 0.7248 
+pugdrs_cos2_0_cos3.0_1.5_400 : 0.7231000000000001
 
 export HF_HOME=/your/custom/path  # Linux/macOS 
 set HF_HOME=D:\your\custom\path   # Windows 
