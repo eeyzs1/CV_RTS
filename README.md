@@ -1,9 +1,9 @@
 # CV_RTS
 
-using git lfs tracking lfs, so need 
+<!-- using git lfs tracking lfs, so need 
 git clone url
 then:
-git lfs pull
+git lfs pull -->
 
 3d loss landscape
 训练模型收敛后用theta = θ(α,β)=θ ∗+αd1+βd2
